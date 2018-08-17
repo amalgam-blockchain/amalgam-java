@@ -1,0 +1,1 @@
+# Amalgam API Java library for Android Studio

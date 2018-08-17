@@ -1,0 +1,11 @@
+<resources>
+    <string name="error_account_name_should">Account name should %s</string>
+    <string name="error_each_account_segment_should">Each account segment should %s</string>
+    <string name="error_not_be_empty">not be empty</string>
+    <string name="error_be_longer">be longer</string>
+    <string name="error_be_shorter">be shorter</string>
+    <string name="error_start_with_a_letter">start with a lowercase letter</string>
+    <string name="error_have_only_letters_digits_or_dashes">have only lowercase letters, digits or dashes</string>
+    <string name="error_have_only_one_dash_in_a_row">have only one dash in a row</string>
+    <string name="error_end_with_a_letter_or_digit">end with a lowercase letter or digit</string>
+</resources>
