@@ -9,13 +9,10 @@ import java.math.BigInteger;
 public class Comment {
 
     public long id;
-    public String category;
     public String parent_author;
     public String parent_permlink;
     public String author;
     public String permlink;
-    public String title;
-    public String body;
     public String json_metadata;
     public TimePointSec last_update;
     public TimePointSec created;

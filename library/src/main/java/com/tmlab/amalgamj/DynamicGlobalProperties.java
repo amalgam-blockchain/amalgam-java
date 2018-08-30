@@ -8,7 +8,7 @@ import java.math.BigInteger;
 
 public class DynamicGlobalProperties {
 
-    public UShort id;
+    public long id;
     public UInteger head_block_number;
     public Ripemd160 head_block_id;
     public TimePointSec time;
@@ -22,8 +22,6 @@ public class DynamicGlobalProperties {
     public Asset confidential_abd_supply;
     public Asset total_vesting_fund_amalgam;
     public Asset total_vesting_shares;
-    public Asset total_reward_fund_amalgam;
-    public BigInteger total_reward_shares2;
     public Asset pending_rewarded_vesting_shares;
     public Asset pending_rewarded_vesting_amalgam;
     public UShort abd_interest_rate;

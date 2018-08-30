@@ -69,6 +69,4 @@ public class Account {
     public TimePointSec last_market_bandwidth_update;
     public TimePointSec last_post;
     public TimePointSec last_root_post;
-    public Asset vesting_balance;
-    public long reputation;
 }
