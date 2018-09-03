@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.tmlab.amalgamj.Amalgam;
+import com.tmlab.amalgamj.Connection;
 import com.tmlab.amalgamj.DynamicGlobalProperties;
 import com.tmlab.amalgamj.Response;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         mCurrentWitness = findViewById(R.id.current_witness);
         mCurrentSupply = findViewById(R.id.current_supply);
 
+        Connection.setNodeUrl("https://api.amalgam.money");
         mHandler = new Handler();
     }
 

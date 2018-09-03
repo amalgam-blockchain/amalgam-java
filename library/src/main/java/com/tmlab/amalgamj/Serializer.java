@@ -70,6 +70,7 @@ public class Serializer {
         builder.registerTypeAdapter(Optional.class, new OptionalTypeAdapter());
         builder.registerTypeAdapter(ArrayHashMap.class, new ArrayHashMapTypeAdapter());
         builder.registerTypeAdapter(Operation.class, new OperationTypeAdapter());
+        builder.registerTypeAdapter(CommentOptionsExtension.class, new CommentOptionsExtensionTypeAdapter());
         return builder;
     }
 
@@ -88,11 +89,11 @@ public class Serializer {
             buffer.writeVString((String) object);
         } else if (object instanceof Boolean) {
             buffer.writeUint8(UByte.valueOf((Boolean) object ? 1 : 0));
-        } else if (object instanceof Operation) {
-            Operation operation = (Operation) object;
-            buffer.writeVarint32(operation.getId());
-            for (String key : operation.params.keySet()) {
-                serialize(buffer, operation.params.get(key));
+        } else if (object instanceof StaticVariant) {
+            StaticVariant variant = (StaticVariant) object;
+            buffer.writeVarint32(variant.getId());
+            for (String key : variant.params.keySet()) {
+                serialize(buffer, variant.params.get(key));
             }
         } else if (object instanceof List) {
             List<Object> list = (List) object;
@@ -334,12 +335,7 @@ public class Serializer {
         public Operation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             try {
                 ArrayList<Object> list = context.deserialize(json, ArrayList.class);
-                LinkedTreeMap<String, Object> map = (LinkedTreeMap) list.get(1);
-                LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-                for (Map.Entry<String, Object> item : map.entrySet()) {
-                    params.put(item.getKey(), item.getValue());
-                }
-                return new Operation((String) list.get(0), params);
+                return Operation.deserialize(list);
             } catch (Exception e) {
                 throw new JsonParseException(e);
             }
@@ -347,10 +343,24 @@ public class Serializer {
 
         @Override
         public JsonElement serialize(Operation src, Type typeOfSrc, JsonSerializationContext context) {
-            ArrayList<Object> list = new ArrayList<>();
-            list.add(src.name);
-            list.add(src.params);
-            return context.serialize(list);
+            return context.serialize(src.serialize());
+        }
+    }
+
+    private static class CommentOptionsExtensionTypeAdapter implements JsonDeserializer<CommentOptionsExtension>, JsonSerializer<CommentOptionsExtension> {
+        @Override
+        public CommentOptionsExtension deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            try {
+                ArrayList<Object> list = context.deserialize(json, ArrayList.class);
+                return CommentOptionsExtension.deserialize(list);
+            } catch (Exception e) {
+                throw new JsonParseException(e);
+            }
+        }
+
+        @Override
+        public JsonElement serialize(CommentOptionsExtension src, Type typeOfSrc, JsonSerializationContext context) {
+            return context.serialize(src.serialize());
         }
     }
 }

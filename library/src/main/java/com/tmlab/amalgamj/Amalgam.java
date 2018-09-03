@@ -13,13 +13,18 @@ import java.util.List;
 
 public class Amalgam {
 
-    public final static int WITHDRAW_ROUTE_TYPE_INCOMING = 0;
-    public final static int WITHDRAW_ROUTE_TYPE_OUTGOING = 1;
-    public final static int WITHDRAW_ROUTE_TYPE_ALL = 2;
+    public final static String WITHDRAW_ROUTE_TYPE_INCOMING = "incoming";
+    public final static String WITHDRAW_ROUTE_TYPE_OUTGOING = "outgoing";
+    public final static String WITHDRAW_ROUTE_TYPE_ALL = "all";
 
-    public final static int BANDWIDTH_TYPE_POST = 0;
-    public final static int BANDWIDTH_TYPE_FORUM = 1;
-    public final static int BANDWIDTH_TYPE_MARKET = 2;
+    public final static String BANDWIDTH_TYPE_POST = "post";
+    public final static String BANDWIDTH_TYPE_FORUM = "forum";
+    public final static String BANDWIDTH_TYPE_MARKET = "market";
+
+    public final static String CURVE_ID_QUADRATIC = "quadratic";
+    public final static String CURVE_ID_QUADRATIC_CURATION = "quadratic_curation";
+    public final static String CURVE_ID_LINEAR = "linear";
+    public final static String CURVE_ID_SQUARE_ROOT = "square_root";
 
     public interface OnGetBlockHeaderListener {
         void onFinish(Response response, BlockHeader blockHeader);
@@ -157,6 +162,22 @@ public class Amalgam {
         void onFinish(Response response, Discussion[] replies);
     }
 
+    public interface OnGetWitnessesListener {
+        void onFinish(Response response, Witness[] witnesses);
+    }
+
+    public interface OnGetWitnessListener {
+        void onFinish(Response response, Witness witness);
+    }
+
+    public interface OnGetRewardFundListener {
+        void onFinish(Response response, RewardFund rewardFund);
+    }
+
+    public interface OnGetVestingDelegationsListener {
+        void onFinish(Response response, VestingDelegation[] vestingDelegations);
+    }
+
     public interface OnGetExtendedAccountListener {
         void onFinish(Response response, ExtendedAccount account);
     }
@@ -176,10 +197,8 @@ public class Amalgam {
                 listener.onFinish(response, blockHeader);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), BlockHeader.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), BlockHeader.class);
         }
         return null;
     }
@@ -197,10 +216,8 @@ public class Amalgam {
                 listener.onFinish(response, block);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), Block.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Block.class);
         }
         return null;
     }
@@ -219,10 +236,8 @@ public class Amalgam {
                 listener.onFinish(response, operations);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), AppliedOperation[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), AppliedOperation[].class);
         }
         return null;
     }
@@ -238,10 +253,8 @@ public class Amalgam {
                 listener.onFinish(response, config);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, String.class, String.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, String.class, String.class);
         }
         return null;
     }
@@ -257,10 +270,8 @@ public class Amalgam {
                 listener.onFinish(response, properties);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), DynamicGlobalProperties.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), DynamicGlobalProperties.class);
         }
         return null;
     }
@@ -276,10 +287,8 @@ public class Amalgam {
                 listener.onFinish(response, properties);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), ChainProperties.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), ChainProperties.class);
         }
         return null;
     }
@@ -295,10 +304,8 @@ public class Amalgam {
                 listener.onFinish(response, feedHistory);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), FeedHistory.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), FeedHistory.class);
         }
         return null;
     }
@@ -314,10 +321,8 @@ public class Amalgam {
                 listener.onFinish(response, price);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), Price.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Price.class);
         }
         return null;
     }
@@ -333,10 +338,8 @@ public class Amalgam {
                 listener.onFinish(response, witnessSchedule);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), WitnessSchedule.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), WitnessSchedule.class);
         }
         return null;
     }
@@ -352,10 +355,8 @@ public class Amalgam {
                 listener.onFinish(response, string);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), String.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), String.class);
         }
         return null;
     }
@@ -371,10 +372,8 @@ public class Amalgam {
                 listener.onFinish(response, scheduledHardfork);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), ScheduledHardfork.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), ScheduledHardfork.class);
         }
         return null;
     }
@@ -392,10 +391,8 @@ public class Amalgam {
                 listener.onFinish(response, accounts);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), List[].class, String.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), List[].class, String.class);
         }
         return null;
     }
@@ -413,10 +410,8 @@ public class Amalgam {
                 listener.onFinish(response, accounts);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
         }
         return null;
     }
@@ -434,10 +429,8 @@ public class Amalgam {
                 listener.onFinish(response, accounts);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
         }
         return null;
     }
@@ -456,10 +449,8 @@ public class Amalgam {
                 listener.onFinish(response, names);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), String[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), String[].class);
         }
         return null;
     }
@@ -475,10 +466,8 @@ public class Amalgam {
                 listener.onFinish(response, count);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), ULong.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), ULong.class);
         }
         return null;
     }
@@ -496,10 +485,8 @@ public class Amalgam {
                 listener.onFinish(response, convertRequests);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), ConvertRequest[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), ConvertRequest[].class);
         }
         return null;
     }
@@ -519,10 +506,8 @@ public class Amalgam {
                 listener.onFinish(response, operations);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, Long.class, AppliedOperation.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, Long.class, AppliedOperation.class);
         }
         return null;
     }
@@ -540,10 +525,8 @@ public class Amalgam {
                 listener.onFinish(response, history);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), OwnerAuthorityHistory[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), OwnerAuthorityHistory[].class);
         }
         return null;
     }
@@ -561,10 +544,8 @@ public class Amalgam {
                 listener.onFinish(response, request);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), AccountRecoveryRequest.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), AccountRecoveryRequest.class);
         }
         return null;
     }
@@ -583,15 +564,13 @@ public class Amalgam {
                 listener.onFinish(response, escrow);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), Escrow.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Escrow.class);
         }
         return null;
     }
 
-    public static WithdrawRoute[] getWithdrawRoutes(String account, int withdrawRouteType, final OnGetWithdrawRoutesListener listener) {
+    public static WithdrawRoute[] getWithdrawRoutes(String account, String withdrawRouteType, final OnGetWithdrawRoutesListener listener) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(account);
         params.add(withdrawRouteType);
@@ -605,15 +584,13 @@ public class Amalgam {
                 listener.onFinish(response, routes);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), WithdrawRoute[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), WithdrawRoute[].class);
         }
         return null;
     }
 
-    public static AccountBandwidth getAccountBandwidth(String account, int bandwidthType, final OnGetAccountBandwidthListener listener) {
+    public static AccountBandwidth getAccountBandwidth(String account, String bandwidthType, final OnGetAccountBandwidthListener listener) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(account);
         params.add(bandwidthType);
@@ -627,10 +604,8 @@ public class Amalgam {
                 listener.onFinish(response, bandwidth);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), AccountBandwidth.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), AccountBandwidth.class);
         }
         return null;
     }
@@ -648,10 +623,8 @@ public class Amalgam {
                 listener.onFinish(response, withdraw);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
         }
         return null;
     }
@@ -669,10 +642,8 @@ public class Amalgam {
                 listener.onFinish(response, withdraw);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
         }
         return null;
     }
@@ -690,10 +661,8 @@ public class Amalgam {
                 listener.onFinish(response, orderBook);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), OrderBook.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), OrderBook.class);
         }
         return null;
     }
@@ -711,10 +680,8 @@ public class Amalgam {
                 listener.onFinish(response, orders);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), ExtendedLimitOrder[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), ExtendedLimitOrder[].class);
         }
         return null;
     }
@@ -733,10 +700,8 @@ public class Amalgam {
                 listener.onFinish(response, queue);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), LiquidityBalance[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), LiquidityBalance[].class);
         }
         return null;
     }
@@ -754,10 +719,8 @@ public class Amalgam {
                 listener.onFinish(response, string);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), String.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), String.class);
         }
         return null;
     }
@@ -775,10 +738,8 @@ public class Amalgam {
                 listener.onFinish(response, transaction);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
         }
         return null;
     }
@@ -797,10 +758,8 @@ public class Amalgam {
                 listener.onFinish(response, keys);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), PublicKey[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), PublicKey[].class);
         }
         return null;
     }
@@ -818,10 +777,8 @@ public class Amalgam {
                 listener.onFinish(response, keys);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), PublicKey[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), PublicKey[].class);
         }
         return null;
     }
@@ -839,10 +796,8 @@ public class Amalgam {
                 listener.onFinish(response, value);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), Boolean.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Boolean.class);
         }
         return null;
     }
@@ -861,16 +816,15 @@ public class Amalgam {
                 listener.onFinish(response, value);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), Boolean.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Boolean.class);
         }
         return null;
     }
 
-    public static VoteState[] getActiveVotes(String permlink, final OnGetActiveVotesListener listener) {
+    public static VoteState[] getActiveVotes(String author, String permlink, final OnGetActiveVotesListener listener) {
         ArrayList<Object> params = new ArrayList<>();
+        params.add(author);
         params.add(permlink);
         Response response = Connection.execute("database_api", "get_active_votes", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
@@ -882,10 +836,8 @@ public class Amalgam {
                 listener.onFinish(response, votes);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), VoteState[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), VoteState[].class);
         }
         return null;
     }
@@ -903,16 +855,15 @@ public class Amalgam {
                 listener.onFinish(response, votes);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), AccountVote[].class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), AccountVote[].class);
         }
         return null;
     }
 
-    public static Discussion getContent(String permlink, final OnGetContentListener listener) {
+    public static Discussion getContent(String author, String permlink, final OnGetContentListener listener) {
         ArrayList<Object> params = new ArrayList<>();
+        params.add(author);
         params.add(permlink);
         Response response = Connection.execute("database_api", "get_content", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
@@ -924,16 +875,15 @@ public class Amalgam {
                 listener.onFinish(response, discussion);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getObject(), Discussion.class);
-            }
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Discussion.class);
         }
         return null;
     }
 
-    public static Discussion[] getContentReplies(String permlink, final OnGetContentRepliesListener listener) {
+    public static Discussion[] getContentReplies(String author, String permlink, final OnGetContentRepliesListener listener) {
         ArrayList<Object> params = new ArrayList<>();
+        params.add(author);
         params.add(permlink);
         Response response = Connection.execute("database_api", "get_content_replies", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
@@ -945,10 +895,177 @@ public class Amalgam {
                 listener.onFinish(response, replies);
             }
         });
-        if ((response != null) && (listener == null)) {
-            if (response.isSuccess()) {
-                return Serializer.fromJson(response, response.getArray(), Discussion[].class);
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), Discussion[].class);
+        }
+        return null;
+    }
+
+    public static Witness[] getWitnesses(long[] witnessIds, final OnGetWitnessesListener listener) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(witnessIds);
+        Response response = Connection.execute("database_api", "get_witnesses", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Witness[] witnesses = null;
+                if (response.isSuccess()) {
+                    witnesses = Serializer.fromJson(response, response.getArray(), Witness[].class);
+                }
+                listener.onFinish(response, witnesses);
             }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), Witness[].class);
+        }
+        return null;
+    }
+
+    public static Witness getWitnessByAccount(String accountName, final OnGetWitnessListener listener) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(accountName);
+        Response response = Connection.execute("database_api", "get_witness_by_account", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Witness witness = null;
+                if (response.isSuccess()) {
+                    witness = Serializer.fromJson(response, response.getObject(), Witness.class);
+                }
+                listener.onFinish(response, witness);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Witness.class);
+        }
+        return null;
+    }
+
+    public static Witness[] getWitnessesByVote(String from, int limit, final OnGetWitnessesListener listener) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(from);
+        params.add(limit);
+        Response response = Connection.execute("database_api", "get_witnesses_by_vote", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Witness[] witnesses = null;
+                if (response.isSuccess()) {
+                    witnesses = Serializer.fromJson(response, response.getArray(), Witness[].class);
+                }
+                listener.onFinish(response, witnesses);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), Witness[].class);
+        }
+        return null;
+    }
+
+    public static String[] lookupWitnessAccounts(String lowerBoundName, int limit, final OnGetNamesListener listener) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(lowerBoundName);
+        params.add(limit);
+        Response response = Connection.execute("database_api", "lookup_witness_accounts", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                String[] names = null;
+                if (response.isSuccess()) {
+                    names = Serializer.fromJson(response, response.getArray(), String[].class);
+                }
+                listener.onFinish(response, names);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), String[].class);
+        }
+        return null;
+    }
+
+    public static ULong getWitnessCount(final OnGetCountListener listener) {
+        Response response = Connection.execute("database_api", "get_witness_count", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ULong count = null;
+                if (response.isSuccess()) {
+                    count = Serializer.fromJson(response, response.getObject(), ULong.class);
+                }
+                listener.onFinish(response, count);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), ULong.class);
+        }
+        return null;
+    }
+
+    public static String[] getActiveWitnesses(final OnGetNamesListener listener) {
+        Response response = Connection.execute("database_api", "get_active_witnesses", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                String[] names = null;
+                if (response.isSuccess()) {
+                    names = Serializer.fromJson(response, response.getArray(), String[].class);
+                }
+                listener.onFinish(response, names);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), String[].class);
+        }
+        return null;
+    }
+
+    public static String[] getMinerQueue(final OnGetNamesListener listener) {
+        Response response = Connection.execute("database_api", "get_miner_queue", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                String[] names = null;
+                if (response.isSuccess()) {
+                    names = Serializer.fromJson(response, response.getArray(), String[].class);
+                }
+                listener.onFinish(response, names);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), String[].class);
+        }
+        return null;
+    }
+
+    public static RewardFund getRewardFund(String name, final OnGetRewardFundListener listener) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(name);
+        Response response = Connection.execute("database_api", "get_reward_fund", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                RewardFund rewardFund = null;
+                if (response.isSuccess()) {
+                    rewardFund = Serializer.fromJson(response, response.getObject(), RewardFund.class);
+                }
+                listener.onFinish(response, rewardFund);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), RewardFund.class);
+        }
+        return null;
+    }
+
+    public static VestingDelegation[] getVestingDelegations(String account, String from, int limit, final OnGetVestingDelegationsListener listener) {
+        ArrayList<Object> params = new ArrayList<>();
+        params.add(account);
+        params.add(from);
+        params.add(limit);
+        Response response = Connection.execute("database_api", "get_vesting_delegations", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                VestingDelegation[] names = null;
+                if (response.isSuccess()) {
+                    names = Serializer.fromJson(response, response.getArray(), VestingDelegation[].class);
+                }
+                listener.onFinish(response, names);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getArray(), VestingDelegation[].class);
         }
         return null;
     }
@@ -1003,12 +1120,57 @@ public class Amalgam {
         return Connection.broadcast(privateKey, "withdraw_vesting", params, prepare, listener);
     }
 
-    private static Response feedPublish(PrivateKey privateKey, String publisher, Price exchangeRate,
-                                        boolean prepare, Connection.OnResponseListener listener) {
+    public static Response limitOrderCreate(PrivateKey privateKey, String owner, UInteger orderId, Asset amountToSell,
+                                            Asset minToReceive, boolean fillOrKill, TimePointSec expiration,
+                                            boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        params.put("orderid", orderId);
+        params.put("amount_to_sell", amountToSell);
+        params.put("min_to_receive", minToReceive);
+        params.put("fill_or_kill", fillOrKill);
+        params.put("expiration", expiration);
+        return Connection.broadcast(privateKey, "limit_order_create", params, prepare, listener);
+    }
+
+    public static Response limitOrderCancel(PrivateKey privateKey, String owner, UInteger orderId,
+                                            boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        params.put("orderid", orderId);
+        return Connection.broadcast(privateKey, "limit_order_cancel", params, prepare, listener);
+    }
+
+    public static Response feedPublish(PrivateKey privateKey, String publisher, Price exchangeRate,
+                                       boolean prepare, Connection.OnResponseListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("publisher", publisher);
         params.put("exchange_rate", exchangeRate);
         return Connection.broadcast(privateKey, "feed_publish", params, prepare, listener);
+    }
+
+    public static Response convert(PrivateKey privateKey, String owner, UInteger requestId, Asset amount,
+                                   boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        params.put("requestid", requestId);
+        params.put("amount", amount);
+        return Connection.broadcast(privateKey, "convert", params, prepare, listener);
+    }
+
+    public static Response accountCreate(PrivateKey privateKey, Asset fee, String creator, String newAccountName,
+                                         Authority owner, Authority active, Authority posting, PublicKey memoKey,
+                                         String jsonMetadata, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("fee", fee);
+        params.put("creator", creator);
+        params.put("new_account_name", newAccountName);
+        params.put("owner", owner);
+        params.put("active", active);
+        params.put("posting", posting);
+        params.put("memo_key", memoKey);
+        params.put("json_metadata", jsonMetadata);
+        return Connection.broadcast(privateKey, "account_create", params, prepare, listener);
     }
 
     public static Response accountUpdate(PrivateKey privateKey, String account, Authority owner, Authority active, Authority posting,
@@ -1023,6 +1185,239 @@ public class Amalgam {
         return Connection.broadcast(privateKey, "account_update", params, prepare, listener);
     }
 
+    public static Response witnessUpdate(PrivateKey privateKey, String owner, String url, PublicKey blockSigningKey,
+                                         ChainProperties props, Asset fee, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        params.put("url", url);
+        params.put("block_signing_key", blockSigningKey);
+        params.put("props", props);
+        params.put("fee", fee);
+        return Connection.broadcast(privateKey, "witness_update", params, prepare, listener);
+    }
+
+    public static Response accountWitnessVote(PrivateKey privateKey, String account, String witness, boolean approve,
+                                              boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("witness", witness);
+        params.put("approve", approve);
+        return Connection.broadcast(privateKey, "account_witness_vote", params, prepare, listener);
+    }
+
+    public static Response accountWitnessProxy(PrivateKey privateKey, String account, String proxy,
+                                               boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("proxy", proxy);
+        return Connection.broadcast(privateKey, "account_witness_proxy", params, prepare, listener);
+    }
+
+    public static Response deleteComment(PrivateKey privateKey, String author, String permlink,
+                                         boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("author", author);
+        params.put("permlink", permlink);
+        return Connection.broadcast(privateKey, "delete_comment", params, prepare, listener);
+    }
+
+    public static Response commentOptions(PrivateKey privateKey, String author, String permlink, Asset maxAcceptedPayout,
+                                          UShort percentAmalgamDollars, boolean allowVotes, boolean allowCurationRewards,
+                                          List<CommentOptionsExtension> extensions, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("author", author);
+        params.put("permlink", permlink);
+        params.put("max_accepted_payout", maxAcceptedPayout);
+        params.put("percent_amalgam_dollars", percentAmalgamDollars);
+        params.put("allow_votes", allowVotes);
+        params.put("allow_curation_rewards", allowCurationRewards);
+        params.put("extensions", extensions);
+        return Connection.broadcast(privateKey, "comment_options", params, prepare, listener);
+    }
+
+    public static Response setWithdrawVestingRoute(PrivateKey privateKey, String fromAccount, String toAccount,
+                                                   UShort percent, boolean autoVest, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from_account", fromAccount);
+        params.put("to_account", toAccount);
+        params.put("percent", percent);
+        params.put("auto_vest", autoVest);
+        return Connection.broadcast(privateKey, "set_withdraw_vesting_route", params, prepare, listener);
+    }
+
+    public static Response limitOrderCreate2(PrivateKey privateKey, String owner, UInteger orderId, Asset amountToSell,
+                                             Price exchangeRate, boolean fillOrKill, TimePointSec expiration,
+                                             boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        params.put("orderid", orderId);
+        params.put("amount_to_sell", amountToSell);
+        params.put("exchange_rate", exchangeRate);
+        params.put("fill_or_kill", fillOrKill);
+        params.put("expiration", expiration);
+        return Connection.broadcast(privateKey, "limit_order_create2", params, prepare, listener);
+    }
+
+    public static Response challengeAuthority(PrivateKey privateKey, String challenger, String challenged, boolean requireOwner,
+                                              boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("challenger", challenger);
+        params.put("challenged", challenged);
+        params.put("require_owner", requireOwner);
+        return Connection.broadcast(privateKey, "challenge_authority", params, prepare, listener);
+    }
+
+    public static Response proveAuthority(PrivateKey privateKey, String challenged, boolean requireOwner,
+                                          boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("challenged", challenged);
+        params.put("require_owner", requireOwner);
+        return Connection.broadcast(privateKey, "prove_authority", params, prepare, listener);
+    }
+
+    public static Response requestAccountRecovery(PrivateKey privateKey, String recoveryAccount, String accountToRecover,
+                                                  Authority newOwnerAuthority, List<FutureExtensions> extensions,
+                                                  boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("recovery_account", recoveryAccount);
+        params.put("account_to_recover", accountToRecover);
+        params.put("new_owner_authority", newOwnerAuthority);
+        params.put("extensions", extensions);
+        return Connection.broadcast(privateKey, "request_account_recovery", params, prepare, listener);
+    }
+
+    public static Response recoverAccount(PrivateKey privateKey, String accountToRecover, Authority newOwnerAuthority,
+                                          Authority recentOwnerAuthority, List<FutureExtensions> extensions,
+                                          boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account_to_recover", accountToRecover);
+        params.put("new_owner_authority", newOwnerAuthority);
+        params.put("recent_owner_authority", recentOwnerAuthority);
+        params.put("extensions", extensions);
+        return Connection.broadcast(privateKey, "recover_account", params, prepare, listener);
+    }
+
+    public static Response changeRecoveryAccount(PrivateKey privateKey, String accountToRecover, String newRecoveryAccount,
+                                                 List<FutureExtensions> extensions, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account_to_recover", accountToRecover);
+        params.put("new_recovery_account", newRecoveryAccount);
+        params.put("extensions", extensions);
+        return Connection.broadcast(privateKey, "change_recovery_account", params, prepare, listener);
+    }
+
+    public static Response escrowTransfer(PrivateKey privateKey, String from, String to, Asset amountABD, Asset amountAmalgam,
+                                          UInteger escrowId, String agent, Asset fee, String jsonMeta,
+                                          TimePointSec ratificationDeadline, TimePointSec escrowExpiration,
+                                          boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("to", to);
+        params.put("abd_amount", amountABD);
+        params.put("amalgam_amount", amountAmalgam);
+        params.put("escrow_id", escrowId);
+        params.put("agent", agent);
+        params.put("fee", fee);
+        params.put("json_meta", jsonMeta);
+        params.put("ratification_deadline", ratificationDeadline);
+        params.put("escrow_expiration", escrowExpiration);
+        return Connection.broadcast(privateKey, "escrow_transfer", params, prepare, listener);
+    }
+
+    public static Response escrowDispute(PrivateKey privateKey, String from, String to, String agent, String who,
+                                         UInteger escrowId, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("to", to);
+        params.put("agent", agent);
+        params.put("who", who);
+        params.put("escrow_id", escrowId);
+        return Connection.broadcast(privateKey, "escrow_dispute", params, prepare, listener);
+    }
+
+    public static Response escrowRelease(PrivateKey privateKey, String from, String to, String agent, String who,
+                                         String receiver, UInteger escrowId, Asset amountABD, Asset amountAmalgam,
+                                         boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("to", to);
+        params.put("agent", agent);
+        params.put("who", who);
+        params.put("receiver", receiver);
+        params.put("escrow_id", escrowId);
+        params.put("abd_amount", amountABD);
+        params.put("amalgam_amount", amountAmalgam);
+        return Connection.broadcast(privateKey, "escrow_release", params, prepare, listener);
+    }
+
+    public static Response escrowApprove(PrivateKey privateKey, String from, String to, String agent, String who,
+                                         UInteger escrowId, boolean approve, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("to", to);
+        params.put("agent", agent);
+        params.put("who", who);
+        params.put("escrow_id", escrowId);
+        params.put("approve", approve);
+        return Connection.broadcast(privateKey, "escrow_approve", params, prepare, listener);
+    }
+
+    public static Response transferToSavings(PrivateKey privateKey, String from, String to, Asset amount, String memo,
+                                             boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("to", to);
+        params.put("amount", amount);
+        params.put("memo", memo);
+        return Connection.broadcast(privateKey, "transfer_to_savings", params, prepare, listener);
+    }
+
+    public static Response transferFromSavings(PrivateKey privateKey, String from, UInteger requestId,
+                                               String to, Asset amount, String memo,
+                                               boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("request_id", requestId);
+        params.put("to", to);
+        params.put("amount", amount);
+        params.put("memo", memo);
+        return Connection.broadcast(privateKey, "transfer_from_savings", params, prepare, listener);
+    }
+
+    public static Response cancelTransferFromSavings(PrivateKey privateKey, String from, UInteger requestId,
+                                                     boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("request_id", requestId);
+        return Connection.broadcast(privateKey, "cancel_transfer_from_savings", params, prepare, listener);
+    }
+
+    public static Response declineVotingRights(PrivateKey privateKey, String account, boolean decline,
+                                               boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("decline", decline);
+        return Connection.broadcast(privateKey, "decline_voting_rights", params, prepare, listener);
+    }
+
+    public static Response resetAccount(PrivateKey privateKey, String resetAccount, String accountToReset, Authority newOwnerAuthority,
+                                        boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("reset_account", resetAccount);
+        params.put("account_to_reset", accountToReset);
+        params.put("new_owner_authority", newOwnerAuthority);
+        return Connection.broadcast(privateKey, "reset_account", params, prepare, listener);
+    }
+
+    public static Response setResetAccount(PrivateKey privateKey, String account, String currentResetAccount, String resetAccount,
+                                           boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("current_reset_account", currentResetAccount);
+        params.put("reset_account", resetAccount);
+        return Connection.broadcast(privateKey, "set_reset_account", params, prepare, listener);
+    }
+
     public static Response claimRewardBalance(PrivateKey privateKey, String account, Asset rewardAmalgam, Asset rewardABD, Asset rewardVests,
                                               boolean prepare, Connection.OnResponseListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -1031,6 +1426,32 @@ public class Amalgam {
         params.put("reward_abd", rewardABD);
         params.put("reward_vests", rewardVests);
         return Connection.broadcast(privateKey, "claim_reward_balance", params, prepare, listener);
+    }
+
+    public static Response delegateVestingShares(PrivateKey privateKey, String delegator, String delegatee, Asset vestingShares,
+                                                 boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("delegator", delegator);
+        params.put("delegatee", delegatee);
+        params.put("vesting_shares", vestingShares);
+        return Connection.broadcast(privateKey, "delegate_vesting_shares", params, prepare, listener);
+    }
+
+    public static Response accountCreateWithDelegation(PrivateKey privateKey, Asset fee, Asset delegation, String creator, String newAccountName,
+                                                       Authority owner, Authority active, Authority posting, PublicKey memoKey,
+                                                       String jsonMetadata, List<FutureExtensions> extensions, boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("fee", fee);
+        params.put("delegation", delegation);
+        params.put("creator", creator);
+        params.put("new_account_name", newAccountName);
+        params.put("owner", owner);
+        params.put("active", active);
+        params.put("posting", posting);
+        params.put("memo_key", memoKey);
+        params.put("json_metadata", jsonMetadata);
+        params.put("extensions", extensions);
+        return Connection.broadcast(privateKey, "account_create_with_delegation", params, prepare, listener);
     }
 
     // Helper functions
@@ -1072,16 +1493,16 @@ public class Amalgam {
         }
         String[] ref = TextUtils.split(value, "\\.");
         for (String label : ref) {
-            if (!label.matches("^[a-z].*$")) {
+            if (!label.matches("^[a-z].*")) {
                 return context.getString(resId, context.getString(R.string.error_start_with_a_letter));
             }
-            if (!label.matches("^[a-z0-9-]*$")) {
+            if (!label.matches("^[a-z0-9-]*")) {
                 return context.getString(resId, context.getString(R.string.error_have_only_letters_digits_or_dashes));
             }
             if (label.contains("--")) {
                 return context.getString(resId, context.getString(R.string.error_have_only_one_dash_in_a_row));
             }
-            if (!label.matches("^.*[a-z0-9]$")) {
+            if (!label.matches("^.*[a-z0-9]")) {
                 return context.getString(resId, context.getString(R.string.error_end_with_a_letter_or_digit));
             }
             if (!(label.length() >= 3)) {
