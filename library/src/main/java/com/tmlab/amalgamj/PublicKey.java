@@ -25,6 +25,9 @@ public class PublicKey {
         if (!Arrays.equals(new_checksum, checksum)) {
             throw new Exception("Invalid public key (checksum did not match)");
         }
+        if (Arrays.equals(public_key, new byte[33])) {
+            return new PublicKey(null);
+        }
         return new PublicKey(Point.decodeFrom(public_key));
     }
 
@@ -38,10 +41,13 @@ public class PublicKey {
     }
 
     public byte[] getEncoded() {
-        return getEncoded(Q.compressed);
+        return getEncoded((Q != null) && Q.compressed);
     }
 
     public byte[] getEncoded(boolean isCompressed) {
+        if (Q == null) {
+            return new byte[33];
+        }
         return Q.getEncoded(isCompressed);
     }
 }
