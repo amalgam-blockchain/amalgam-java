@@ -21,19 +21,9 @@ public class Account {
     public TimePointSec last_account_update;
     public TimePointSec created;
     public boolean mined;
-    public boolean owner_challenged;
-    public boolean active_challenged;
-    public TimePointSec last_owner_proved;
-    public TimePointSec last_active_proved;
     public String recovery_account;
-    public String reset_account;
     public TimePointSec last_account_recovery;
-    public UInteger comment_count;
-    public UInteger lifetime_vote_count;
-    public UInteger post_count;
     public boolean can_vote;
-    public UShort voting_power;
-    public TimePointSec last_vote_time;
     public Asset balance;
     public Asset savings_balance;
     public Asset abd_balance;
@@ -45,12 +35,6 @@ public class Account {
     public TimePointSec savings_abd_seconds_last_update;
     public TimePointSec savings_abd_last_interest_payment;
     public UByte savings_withdraw_requests;
-    public Asset reward_abd_balance;
-    public Asset reward_amalgam_balance;
-    public Asset reward_vesting_balance;
-    public Asset reward_vesting_amalgam;
-    public long curation_rewards;
-    public long posting_rewards;
     public Asset vesting_shares;
     public Asset delegated_vesting_shares;
     public Asset received_vesting_shares;
@@ -67,6 +51,4 @@ public class Account {
     public long average_market_bandwidth;
     public long lifetime_market_bandwidth;
     public TimePointSec last_market_bandwidth_update;
-    public TimePointSec last_post;
-    public TimePointSec last_root_post;
 }

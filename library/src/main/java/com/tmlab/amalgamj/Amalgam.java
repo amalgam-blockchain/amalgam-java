@@ -17,14 +17,8 @@ public class Amalgam {
     public final static String WITHDRAW_ROUTE_TYPE_OUTGOING = "outgoing";
     public final static String WITHDRAW_ROUTE_TYPE_ALL = "all";
 
-    public final static String BANDWIDTH_TYPE_POST = "post";
     public final static String BANDWIDTH_TYPE_FORUM = "forum";
     public final static String BANDWIDTH_TYPE_MARKET = "market";
-
-    public final static String CURVE_ID_QUADRATIC = "quadratic";
-    public final static String CURVE_ID_QUADRATIC_CURATION = "quadratic_curation";
-    public final static String CURVE_ID_LINEAR = "linear";
-    public final static String CURVE_ID_SQUARE_ROOT = "square_root";
 
     public interface OnGetBlockHeaderListener {
         void onFinish(Response response, BlockHeader blockHeader);
@@ -130,10 +124,6 @@ public class Amalgam {
         void onFinish(Response response, ExtendedLimitOrder[] orders);
     }
 
-    public interface OnGetLiquidityQueueListener {
-        void onFinish(Response response, LiquidityBalance[] queue);
-    }
-
     public interface OnGetAnnotatedTransactionListener {
         void onFinish(Response response, AnnotatedTransaction transaction);
     }
@@ -146,32 +136,12 @@ public class Amalgam {
         void onFinish(Response response, Boolean value);
     }
 
-    public interface OnGetActiveVotesListener {
-        void onFinish(Response response, VoteState[] votes);
-    }
-
-    public interface OnGetAccountVotesListener {
-        void onFinish(Response response, AccountVote[] votes);
-    }
-
-    public interface OnGetContentListener {
-        void onFinish(Response response, Discussion discussion);
-    }
-
-    public interface OnGetContentRepliesListener {
-        void onFinish(Response response, Discussion[] replies);
-    }
-
     public interface OnGetWitnessesListener {
         void onFinish(Response response, Witness[] witnesses);
     }
 
     public interface OnGetWitnessListener {
         void onFinish(Response response, Witness witness);
-    }
-
-    public interface OnGetRewardFundListener {
-        void onFinish(Response response, RewardFund rewardFund);
     }
 
     public interface OnGetVestingDelegationsListener {
@@ -686,26 +656,6 @@ public class Amalgam {
         return null;
     }
 
-    public static LiquidityBalance[] getLiquidityQueue(String startAccount, int limit, final OnGetLiquidityQueueListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(startAccount);
-        params.add(limit);
-        Response response = Connection.execute("database_api", "get_liquidity_queue", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                LiquidityBalance[] queue = null;
-                if (response.isSuccess()) {
-                    queue = Serializer.fromJson(response, response.getArray(), LiquidityBalance[].class);
-                }
-                listener.onFinish(response, queue);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), LiquidityBalance[].class);
-        }
-        return null;
-    }
-
     public static String getTransactionHex(Transaction trx, final OnGetStringListener listener) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(trx);
@@ -822,85 +772,6 @@ public class Amalgam {
         return null;
     }
 
-    public static VoteState[] getActiveVotes(String author, String permlink, final OnGetActiveVotesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(author);
-        params.add(permlink);
-        Response response = Connection.execute("database_api", "get_active_votes", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                VoteState[] votes = null;
-                if (response.isSuccess()) {
-                    votes = Serializer.fromJson(response, response.getArray(), VoteState[].class);
-                }
-                listener.onFinish(response, votes);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), VoteState[].class);
-        }
-        return null;
-    }
-
-    public static AccountVote[] getAccountVotes(String voter, final OnGetAccountVotesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(voter);
-        Response response = Connection.execute("database_api", "get_account_votes", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                AccountVote[] votes = null;
-                if (response.isSuccess()) {
-                    votes = Serializer.fromJson(response, response.getArray(), AccountVote[].class);
-                }
-                listener.onFinish(response, votes);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), AccountVote[].class);
-        }
-        return null;
-    }
-
-    public static Discussion getContent(String author, String permlink, final OnGetContentListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(author);
-        params.add(permlink);
-        Response response = Connection.execute("database_api", "get_content", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Discussion discussion = null;
-                if (response.isSuccess()) {
-                    discussion = Serializer.fromJson(response, response.getObject(), Discussion.class);
-                }
-                listener.onFinish(response, discussion);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Discussion.class);
-        }
-        return null;
-    }
-
-    public static Discussion[] getContentReplies(String author, String permlink, final OnGetContentRepliesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(author);
-        params.add(permlink);
-        Response response = Connection.execute("database_api", "get_content_replies", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Discussion[] replies = null;
-                if (response.isSuccess()) {
-                    replies = Serializer.fromJson(response, response.getArray(), Discussion[].class);
-                }
-                listener.onFinish(response, replies);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), Discussion[].class);
-        }
-        return null;
-    }
-
     public static Witness[] getWitnesses(long[] witnessIds, final OnGetWitnessesListener listener) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(witnessIds);
@@ -1013,42 +884,6 @@ public class Amalgam {
         return null;
     }
 
-    public static String[] getMinerQueue(final OnGetNamesListener listener) {
-        Response response = Connection.execute("database_api", "get_miner_queue", null, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                String[] names = null;
-                if (response.isSuccess()) {
-                    names = Serializer.fromJson(response, response.getArray(), String[].class);
-                }
-                listener.onFinish(response, names);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), String[].class);
-        }
-        return null;
-    }
-
-    public static RewardFund getRewardFund(String name, final OnGetRewardFundListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(name);
-        Response response = Connection.execute("database_api", "get_reward_fund", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                RewardFund rewardFund = null;
-                if (response.isSuccess()) {
-                    rewardFund = Serializer.fromJson(response, response.getObject(), RewardFund.class);
-                }
-                listener.onFinish(response, rewardFund);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), RewardFund.class);
-        }
-        return null;
-    }
-
     public static VestingDelegation[] getVestingDelegations(String account, String from, int limit, final OnGetVestingDelegationsListener listener) {
         ArrayList<Object> params = new ArrayList<>();
         params.add(account);
@@ -1071,27 +906,6 @@ public class Amalgam {
     }
 
     // Network broadcast API
-
-    public static Response vote(PrivateKey privateKey, String voter, String author, String permlink, UShort weight,
-                                boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("voter", voter);
-        params.put("author", author);
-        params.put("permlink", permlink);
-        params.put("weight", weight);
-        return Connection.broadcast(privateKey, "vote", params, prepare, listener);
-    }
-
-    public static Response comment(PrivateKey privateKey, String parentAuthor, String parentPermlink, String author, String permlink,
-                                   String jsonMetadata, boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("parent_author", parentAuthor);
-        params.put("parent_permlink", parentPermlink);
-        params.put("author", author);
-        params.put("permlink", permlink);
-        params.put("json_metadata", jsonMetadata);
-        return Connection.broadcast(privateKey, "comment", params, prepare, listener);
-    }
 
     public static Response transfer(PrivateKey privateKey, String from, String to, Asset amount, String memo,
                                     boolean prepare, Connection.OnResponseListener listener) {
@@ -1213,28 +1027,6 @@ public class Amalgam {
         return Connection.broadcast(privateKey, "account_witness_proxy", params, prepare, listener);
     }
 
-    public static Response deleteComment(PrivateKey privateKey, String author, String permlink,
-                                         boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("author", author);
-        params.put("permlink", permlink);
-        return Connection.broadcast(privateKey, "delete_comment", params, prepare, listener);
-    }
-
-    public static Response commentOptions(PrivateKey privateKey, String author, String permlink, Asset maxAcceptedPayout,
-                                          UShort percentAmalgamDollars, boolean allowVotes, boolean allowCurationRewards,
-                                          List<CommentOptionsExtension> extensions, boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("author", author);
-        params.put("permlink", permlink);
-        params.put("max_accepted_payout", maxAcceptedPayout);
-        params.put("percent_amalgam_dollars", percentAmalgamDollars);
-        params.put("allow_votes", allowVotes);
-        params.put("allow_curation_rewards", allowCurationRewards);
-        params.put("extensions", extensions);
-        return Connection.broadcast(privateKey, "comment_options", params, prepare, listener);
-    }
-
     public static Response setWithdrawVestingRoute(PrivateKey privateKey, String fromAccount, String toAccount,
                                                    UShort percent, boolean autoVest, boolean prepare, Connection.OnResponseListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -1256,23 +1048,6 @@ public class Amalgam {
         params.put("fill_or_kill", fillOrKill);
         params.put("expiration", expiration);
         return Connection.broadcast(privateKey, "limit_order_create2", params, prepare, listener);
-    }
-
-    public static Response challengeAuthority(PrivateKey privateKey, String challenger, String challenged, boolean requireOwner,
-                                              boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("challenger", challenger);
-        params.put("challenged", challenged);
-        params.put("require_owner", requireOwner);
-        return Connection.broadcast(privateKey, "challenge_authority", params, prepare, listener);
-    }
-
-    public static Response proveAuthority(PrivateKey privateKey, String challenged, boolean requireOwner,
-                                          boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("challenged", challenged);
-        params.put("require_owner", requireOwner);
-        return Connection.broadcast(privateKey, "prove_authority", params, prepare, listener);
     }
 
     public static Response requestAccountRecovery(PrivateKey privateKey, String recoveryAccount, String accountToRecover,
@@ -1400,34 +1175,6 @@ public class Amalgam {
         return Connection.broadcast(privateKey, "decline_voting_rights", params, prepare, listener);
     }
 
-    public static Response resetAccount(PrivateKey privateKey, String resetAccount, String accountToReset, Authority newOwnerAuthority,
-                                        boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("reset_account", resetAccount);
-        params.put("account_to_reset", accountToReset);
-        params.put("new_owner_authority", newOwnerAuthority);
-        return Connection.broadcast(privateKey, "reset_account", params, prepare, listener);
-    }
-
-    public static Response setResetAccount(PrivateKey privateKey, String account, String currentResetAccount, String resetAccount,
-                                           boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("account", account);
-        params.put("current_reset_account", currentResetAccount);
-        params.put("reset_account", resetAccount);
-        return Connection.broadcast(privateKey, "set_reset_account", params, prepare, listener);
-    }
-
-    public static Response claimRewardBalance(PrivateKey privateKey, String account, Asset rewardAmalgam, Asset rewardABD, Asset rewardVests,
-                                              boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("account", account);
-        params.put("reward_amalgam", rewardAmalgam);
-        params.put("reward_abd", rewardABD);
-        params.put("reward_vests", rewardVests);
-        return Connection.broadcast(privateKey, "claim_reward_balance", params, prepare, listener);
-    }
-
     public static Response delegateVestingShares(PrivateKey privateKey, String delegator, String delegatee, Asset vestingShares,
                                                  boolean prepare, Connection.OnResponseListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -1435,23 +1182,6 @@ public class Amalgam {
         params.put("delegatee", delegatee);
         params.put("vesting_shares", vestingShares);
         return Connection.broadcast(privateKey, "delegate_vesting_shares", params, prepare, listener);
-    }
-
-    public static Response accountCreateWithDelegation(PrivateKey privateKey, Asset fee, Asset delegation, String creator, String newAccountName,
-                                                       Authority owner, Authority active, Authority posting, PublicKey memoKey,
-                                                       String jsonMetadata, List<FutureExtensions> extensions, boolean prepare, Connection.OnResponseListener listener) {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("fee", fee);
-        params.put("delegation", delegation);
-        params.put("creator", creator);
-        params.put("new_account_name", newAccountName);
-        params.put("owner", owner);
-        params.put("active", active);
-        params.put("posting", posting);
-        params.put("memo_key", memoKey);
-        params.put("json_metadata", jsonMetadata);
-        params.put("extensions", extensions);
-        return Connection.broadcast(privateKey, "account_create_with_delegation", params, prepare, listener);
     }
 
     // Helper functions

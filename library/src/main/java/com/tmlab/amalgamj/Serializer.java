@@ -70,7 +70,6 @@ public class Serializer {
         builder.registerTypeAdapter(Optional.class, new OptionalTypeAdapter());
         builder.registerTypeAdapter(ArrayHashMap.class, new ArrayHashMapTypeAdapter());
         builder.registerTypeAdapter(Operation.class, new OperationTypeAdapter());
-        builder.registerTypeAdapter(CommentOptionsExtension.class, new CommentOptionsExtensionTypeAdapter());
         return builder;
     }
 
@@ -343,23 +342,6 @@ public class Serializer {
 
         @Override
         public JsonElement serialize(Operation src, Type typeOfSrc, JsonSerializationContext context) {
-            return context.serialize(src.serialize());
-        }
-    }
-
-    private static class CommentOptionsExtensionTypeAdapter implements JsonDeserializer<CommentOptionsExtension>, JsonSerializer<CommentOptionsExtension> {
-        @Override
-        public CommentOptionsExtension deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            try {
-                ArrayList<Object> list = context.deserialize(json, ArrayList.class);
-                return CommentOptionsExtension.deserialize(list);
-            } catch (Exception e) {
-                throw new JsonParseException(e);
-            }
-        }
-
-        @Override
-        public JsonElement serialize(CommentOptionsExtension src, Type typeOfSrc, JsonSerializationContext context) {
             return context.serialize(src.serialize());
         }
     }
