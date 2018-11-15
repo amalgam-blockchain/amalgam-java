@@ -42,6 +42,7 @@ public class Operation extends StaticVariant {
         "custom_binary",
         "decline_voting_rights",
         "delegate_vesting_shares",
+        "witness_set_properties",
         "tbd1",
         "tbd2",
         "tbd3",
@@ -56,11 +57,11 @@ public class Operation extends StaticVariant {
         "interest",
         "fill_vesting_withdraw",
         "fill_order",
-        "shutdown_witness",
         "fill_transfer_from_savings",
         "hardfork",
         "return_vesting_delegation",
-        "producer_reward"
+        "producer_reward",
+        "clear_null_account_balance"
     );
 
     public Operation(String name, LinkedHashMap<String, Object> params) {
