@@ -5,6 +5,7 @@ import org.joou.UShort;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -25,8 +26,8 @@ public class Transaction {
         Response response = Connection.execute("database_api", "get_dynamic_global_properties", null, null);
         response.checkError();
         DynamicGlobalProperties properties = Serializer.fromJson(response, response.getObject(), DynamicGlobalProperties.class);
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(properties.last_irreversible_block_num);
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("block_num", properties.last_irreversible_block_num);
         response = Connection.execute("database_api", "get_block_header", params, null);
         response.checkError();
         BlockHeader blockHeader = Serializer.fromJson(response, response.getObject(), BlockHeader.class);

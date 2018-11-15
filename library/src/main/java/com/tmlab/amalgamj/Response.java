@@ -105,6 +105,18 @@ public class Response extends JSONObject {
         return getJSONObject("result").toString();
     }
 
+    public String getObjectField(String name) {
+        JSONObject result = new JSONObject();
+        JSONObject object = getJSONObject("result");
+        try {
+            if (has(name)) {
+                result = object.getJSONObject(name);
+            }
+        } catch (JSONException e) {
+        }
+        return result.toString();
+    }
+
     public void setSuccess() {
         try {
             put("result", new JSONObject());

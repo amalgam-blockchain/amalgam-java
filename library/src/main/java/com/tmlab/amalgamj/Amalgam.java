@@ -13,6 +13,27 @@ import java.util.List;
 
 public class Amalgam {
 
+    public final static String SORT_ORDER_BY_NAME = "by_name";
+    public final static String SORT_ORDER_BY_PROXY = "by_proxy";
+    public final static String SORT_ORDER_BY_NEXT_VESTING_WITHDRAWAL = "by_next_vesting_withdrawal";
+    public final static String SORT_ORDER_BY_ACCOUNT = "by_account";
+    public final static String SORT_ORDER_BY_EXPIRATION = "by_expiration";
+    public final static String SORT_ORDER_BY_EFFECTIVE_DATE = "by_effective_date";
+    public final static String SORT_ORDER_BY_VOTE_NAME = "by_vote_name";
+    public final static String SORT_ORDER_BY_SCHEDULE_TIME = "by_schedule_time";
+    public final static String SORT_ORDER_BY_ACCOUNT_WITNESS = "by_account_witness";
+    public final static String SORT_ORDER_BY_WITNESS_ACCOUNT = "by_witness_account";
+    public final static String SORT_ORDER_BY_FROM_ID = "by_from_id";
+    public final static String SORT_ORDER_BY_RATIFICATION_DEADLINE = "by_ratification_deadline";
+    public final static String SORT_ORDER_BY_WITHDRAW_ROUTE = "by_withdraw_route";
+    public final static String SORT_ORDER_BY_DESTINATION = "by_destination";
+    public final static String SORT_ORDER_BY_COMPLETE_FROM_ID = "by_complete_from_id";
+    public final static String SORT_ORDER_BY_TO_COMPLETE = "by_to_complete";
+    public final static String SORT_ORDER_BY_DELEGATION = "by_delegation";
+    public final static String SORT_ORDER_BY_ACCOUNT_EXPIRATION = "by_account_expiration";
+    public final static String SORT_ORDER_BY_CONVERSION_DATE = "by_conversion_date";
+    public final static String SORT_ORDER_BY_PRICE = "by_price";
+
     public final static String WITHDRAW_ROUTE_TYPE_INCOMING = "incoming";
     public final static String WITHDRAW_ROUTE_TYPE_OUTGOING = "outgoing";
     public final static String WITHDRAW_ROUTE_TYPE_ALL = "all";
@@ -32,8 +53,16 @@ public class Amalgam {
         void onFinish(Response response, AppliedOperation[] operations);
     }
 
+    public interface OnGetAnnotatedTransactionListener {
+        void onFinish(Response response, AnnotatedTransaction transaction);
+    }
+
     public interface OnGetConfigListener {
         void onFinish(Response response, LinkedHashMap<String, String> config);
+    }
+
+    public interface OnGetVersionListener {
+        void onFinish(Response response, Version version);
     }
 
     public interface OnGetDynamicGlobalPropertiesListener {
@@ -44,88 +73,96 @@ public class Amalgam {
         void onFinish(Response response, ChainProperties properties);
     }
 
-    public interface OnGetFeedHistoryListener {
-        void onFinish(Response response, FeedHistory feedHistory);
+    public interface OnGetWitnessScheduleListener {
+        void onFinish(Response response, WitnessSchedule witnessSchedule);
+    }
+
+    public interface OnGetReserveRatioListener {
+        void onFinish(Response response, ReserveRatio reserveRatio);
+    }
+
+    public interface OnGetHardforkPropertiesListener {
+        void onFinish(Response response, HardforkProperties hardforkProperties);
     }
 
     public interface OnGetPriceListener {
         void onFinish(Response response, Price price);
     }
 
-    public interface OnGetWitnessScheduleListener {
-        void onFinish(Response response, WitnessSchedule witnessSchedule);
+    public interface OnGetFeedHistoryListener {
+        void onFinish(Response response, FeedHistory feedHistory);
     }
 
-    public interface OnGetStringListener {
-        void onFinish(Response response, String string);
+    public interface OnGetWitnessesListener {
+        void onFinish(Response response, Witness[] witnesses);
     }
 
-    public interface OnGetScheduledHardforkListener {
-        void onFinish(Response response, ScheduledHardfork scheduledHardfork);
-    }
-
-    public interface OnGetKeyReferencesListener {
-        void onFinish(Response response, List<String>[] accounts);
-    }
-
-    public interface OnGetExtendedAccountsListener {
-        void onFinish(Response response, ExtendedAccount[] accounts);
-    }
-
-    public interface OnGetAccountsListener {
-        void onFinish(Response response, Account[] accounts);
+    public interface OnGetWitnessVotesListener {
+        void onFinish(Response response, WitnessVote[] witnessVotes);
     }
 
     public interface OnGetNamesListener {
         void onFinish(Response response, String[] names);
     }
 
-    public interface OnGetCountListener {
-        void onFinish(Response response, ULong count);
-    }
-
-    public interface OnGetConvertRequestsListener {
-        void onFinish(Response response, ConvertRequest[] convertRequests);
+    public interface OnGetAccountsListener {
+        void onFinish(Response response, Account[] accounts);
     }
 
     public interface OnGetAccountHistoryListener {
         void onFinish(Response response, LinkedHashMap<Long, AppliedOperation> operations);
     }
 
-    public interface OnGetOwnerHistoryListener {
-        void onFinish(Response response, OwnerAuthorityHistory[] history);
-    }
-
-    public interface OnGetRecoveryRequestListener {
-        void onFinish(Response response, AccountRecoveryRequest request);
-    }
-
-    public interface OnGetEscrowListener {
-        void onFinish(Response response, Escrow escrow);
-    }
-
-    public interface OnGetWithdrawRoutesListener {
-        void onFinish(Response response, WithdrawRoute[] routes);
-    }
-
     public interface OnGetAccountBandwidthListener {
         void onFinish(Response response, AccountBandwidth bandwidth);
     }
 
-    public interface OnGetSavingsWithdrawListener {
-        void onFinish(Response response, SavingsWithdraw[] withdraw);
+    public interface OnGetOwnerHistoryListener {
+        void onFinish(Response response, OwnerAuthorityHistory[] history);
     }
 
-    public interface OnGetOrderBookListener {
-        void onFinish(Response response, OrderBook orderBook);
+    public interface OnGetRecoveryRequestsListener {
+        void onFinish(Response response, AccountRecoveryRequest[] requests);
     }
 
-    public interface OnGetOrdersListener {
-        void onFinish(Response response, ExtendedLimitOrder[] orders);
+    public interface OnGetChangeRecoveryAccountRequestsListener {
+        void onFinish(Response response, ChangeRecoveryAccountRequest[] requests);
     }
 
-    public interface OnGetAnnotatedTransactionListener {
-        void onFinish(Response response, AnnotatedTransaction transaction);
+    public interface OnGetEscrowsListener {
+        void onFinish(Response response, Escrow[] escrows);
+    }
+
+    public interface OnGetWithdrawVestingRoutesListener {
+        void onFinish(Response response, WithdrawVestingRoute[] routes);
+    }
+
+    public interface OnGetSavingsWithdrawalsListener {
+        void onFinish(Response response, SavingsWithdraw[] withdrawals);
+    }
+
+    public interface OnGetVestingDelegationsListener {
+        void onFinish(Response response, VestingDelegation[] delegations);
+    }
+
+    public interface OnGetVestingDelegationExpirationsListener {
+        void onFinish(Response response, VestingDelegationExpiration[] delegations);
+    }
+
+    public interface OnGetAbdConversionRequestsListener {
+        void onFinish(Response response, ConvertRequest[] requests);
+    }
+
+    public interface OnGetDeclineVotingRightsRequestsListener {
+        void onFinish(Response response, DeclineVotingRightsRequest[] requests);
+    }
+
+    public interface OnGetLimitOrdersListener {
+        void onFinish(Response response, LimitOrder[] orders);
+    }
+
+    public interface OnGetStringListener {
+        void onFinish(Response response, String string);
     }
 
     public interface OnGetPublicKeysListener {
@@ -136,27 +173,27 @@ public class Amalgam {
         void onFinish(Response response, Boolean value);
     }
 
-    public interface OnGetWitnessesListener {
-        void onFinish(Response response, Witness[] witnesses);
+    public interface OnGetKeyReferencesListener {
+        void onFinish(Response response, List<String>[] accounts);
     }
 
-    public interface OnGetWitnessListener {
-        void onFinish(Response response, Witness witness);
+    public interface OnResponseListener {
+        void onFinish(Response response);
     }
 
-    public interface OnGetVestingDelegationsListener {
-        void onFinish(Response response, VestingDelegation[] vestingDelegations);
+    public interface OnBroadcastResultListener {
+        void onFinish(Response response, BroadcastResult result);
     }
 
-    public interface OnGetExtendedAccountListener {
-        void onFinish(Response response, ExtendedAccount account);
+    public interface OnGetAccountListener {
+        void onFinish(Response response, Account account);
     }
 
     // Database API
 
     public static BlockHeader getBlockHeader(UInteger blockNum, final OnGetBlockHeaderListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(blockNum);
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("block_num", blockNum);
         Response response = Connection.execute("database_api", "get_block_header", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
@@ -174,8 +211,8 @@ public class Amalgam {
     }
 
     public static Block getBlock(UInteger blockNum, final OnGetBlockListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(blockNum);
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("block_num", blockNum);
         Response response = Connection.execute("database_api", "get_block", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
@@ -193,21 +230,40 @@ public class Amalgam {
     }
 
     public static AppliedOperation[] getOpsInBlock(UInteger blockNum, boolean onlyVirtual, final OnGetOperationsListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(blockNum);
-        params.add(onlyVirtual);
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("block_num", blockNum);
+        params.put("only_virtual", onlyVirtual);
         Response response = Connection.execute("database_api", "get_ops_in_block", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
                 AppliedOperation[] operations = null;
                 if (response.isSuccess()) {
-                    operations = Serializer.fromJson(response, response.getArray(), AppliedOperation[].class);
+                    operations = Serializer.fromJson(response, response.getObjectField("ops"), AppliedOperation[].class);
                 }
                 listener.onFinish(response, operations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), AppliedOperation[].class);
+            return Serializer.fromJson(response, response.getObjectField("ops"), AppliedOperation[].class);
+        }
+        return null;
+    }
+
+    public static AnnotatedTransaction getTransaction(Ripemd160 id, final OnGetAnnotatedTransactionListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("id", id);
+        Response response = Connection.execute("database_api", "get_transaction", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                AnnotatedTransaction transaction = null;
+                if (response.isSuccess()) {
+                    transaction = Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
+                }
+                listener.onFinish(response, transaction);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
         }
         return null;
     }
@@ -225,6 +281,23 @@ public class Amalgam {
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
             return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, String.class, String.class);
+        }
+        return null;
+    }
+
+    public static Version getVersion(final OnGetVersionListener listener) {
+        Response response = Connection.execute("database_api", "get_version", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Version version = null;
+                if (response.isSuccess()) {
+                    version = Serializer.fromJson(response, response.getObject(), Version.class);
+                }
+                listener.onFinish(response, version);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), Version.class);
         }
         return null;
     }
@@ -263,40 +336,6 @@ public class Amalgam {
         return null;
     }
 
-    public static FeedHistory getFeedHistory(final OnGetFeedHistoryListener listener) {
-        Response response = Connection.execute("database_api", "get_feed_history", null, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                FeedHistory feedHistory = null;
-                if (response.isSuccess()) {
-                    feedHistory = Serializer.fromJson(response, response.getObject(), FeedHistory.class);
-                }
-                listener.onFinish(response, feedHistory);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), FeedHistory.class);
-        }
-        return null;
-    }
-
-    public static Price getCurrentMedianHistoryPrice(final OnGetPriceListener listener) {
-        Response response = Connection.execute("database_api", "get_current_median_history_price", null, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Price price = null;
-                if (response.isSuccess()) {
-                    price = Serializer.fromJson(response, response.getObject(), Price.class);
-                }
-                listener.onFinish(response, price);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Price.class);
-        }
-        return null;
-    }
-
     public static WitnessSchedule getWitnessSchedule(final OnGetWitnessScheduleListener listener) {
         Response response = Connection.execute("database_api", "get_witness_schedule", null, listener == null ? null : new Connection.OnResponseListener() {
             @Override
@@ -314,555 +353,131 @@ public class Amalgam {
         return null;
     }
 
-    public static String getHardforkVersion(final OnGetStringListener listener) {
-        Response response = Connection.execute("database_api", "get_hardfork_version", null, listener == null ? null : new Connection.OnResponseListener() {
+    public static ReserveRatio getReserveRatio(final OnGetReserveRatioListener listener) {
+        Response response = Connection.execute("database_api", "get_reserve_ratio", null, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
-                String string = null;
+                ReserveRatio reserveRatio = null;
                 if (response.isSuccess()) {
-                    string = Serializer.fromJson(response, response.getObject(), String.class);
+                    reserveRatio = Serializer.fromJson(response, response.getObject(), ReserveRatio.class);
                 }
-                listener.onFinish(response, string);
+                listener.onFinish(response, reserveRatio);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), String.class);
+            return Serializer.fromJson(response, response.getObject(), ReserveRatio.class);
         }
         return null;
     }
 
-    public static ScheduledHardfork getNextScheduledHardfork(final OnGetScheduledHardforkListener listener) {
-        Response response = Connection.execute("database_api", "get_next_scheduled_hardfork", null, listener == null ? null : new Connection.OnResponseListener() {
+    public static HardforkProperties getHardforkProperties(final OnGetHardforkPropertiesListener listener) {
+        Response response = Connection.execute("database_api", "get_hardfork_properties", null, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
-                ScheduledHardfork scheduledHardfork = null;
+                HardforkProperties hardforkProperties = null;
                 if (response.isSuccess()) {
-                    scheduledHardfork = Serializer.fromJson(response, response.getObject(), ScheduledHardfork.class);
+                    hardforkProperties = Serializer.fromJson(response, response.getObject(), HardforkProperties.class);
                 }
-                listener.onFinish(response, scheduledHardfork);
+                listener.onFinish(response, hardforkProperties);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), ScheduledHardfork.class);
+            return Serializer.fromJson(response, response.getObject(), HardforkProperties.class);
         }
         return null;
     }
 
-    public static List<String>[] getKeyReferences(PublicKey[] keys, final OnGetKeyReferencesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(keys);
-        Response response = Connection.execute("account_by_key_api", "get_key_references", params, listener == null ? null : new Connection.OnResponseListener() {
+    public static Price getCurrentPriceFeed(final OnGetPriceListener listener) {
+        Response response = Connection.execute("database_api", "get_current_price_feed", null, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
-                List<String>[] accounts = null;
+                Price price = null;
                 if (response.isSuccess()) {
-                    accounts = Serializer.fromJson(response, response.getArray(), List[].class, String.class);
+                    price = Serializer.fromJson(response, response.getObject(), Price.class);
                 }
-                listener.onFinish(response, accounts);
+                listener.onFinish(response, price);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), List[].class, String.class);
+            return Serializer.fromJson(response, response.getObject(), Price.class);
         }
         return null;
     }
 
-    public static ExtendedAccount[] getAccounts(String[] names, final OnGetExtendedAccountsListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(names);
-        Response response = Connection.execute("database_api", "get_accounts", params, listener == null ? null : new Connection.OnResponseListener() {
+    public static FeedHistory getFeedHistory(final OnGetFeedHistoryListener listener) {
+        Response response = Connection.execute("database_api", "get_feed_history", null, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
-                ExtendedAccount[] accounts = null;
+                FeedHistory feedHistory = null;
                 if (response.isSuccess()) {
-                    accounts = Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
+                    feedHistory = Serializer.fromJson(response, response.getObject(), FeedHistory.class);
                 }
-                listener.onFinish(response, accounts);
+                listener.onFinish(response, feedHistory);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
+            return Serializer.fromJson(response, response.getObject(), FeedHistory.class);
         }
         return null;
     }
 
-    public static ExtendedAccount[] lookupAccountNames(String[] accountNames, final OnGetAccountsListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(accountNames);
-        Response response = Connection.execute("database_api", "lookup_account_names", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                ExtendedAccount[] accounts = null;
-                if (response.isSuccess()) {
-                    accounts = Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
-                }
-                listener.onFinish(response, accounts);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), ExtendedAccount[].class);
-        }
-        return null;
-    }
-
-    public static String[] lookupAccounts(String lowerBoundName, int limit, final OnGetNamesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(lowerBoundName);
-        params.add(limit);
-        Response response = Connection.execute("database_api", "lookup_accounts", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                String[] names = null;
-                if (response.isSuccess()) {
-                    names = Serializer.fromJson(response, response.getArray(), String[].class);
-                }
-                listener.onFinish(response, names);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), String[].class);
-        }
-        return null;
-    }
-
-    public static ULong getAccountCount(final OnGetCountListener listener) {
-        Response response = Connection.execute("database_api", "get_account_count", null, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                ULong count = null;
-                if (response.isSuccess()) {
-                    count = Serializer.fromJson(response, response.getObject(), ULong.class);
-                }
-                listener.onFinish(response, count);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), ULong.class);
-        }
-        return null;
-    }
-
-    public static ConvertRequest[] getConversionRequests(String accountName, final OnGetConvertRequestsListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(accountName);
-        Response response = Connection.execute("database_api", "get_conversion_requests", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                ConvertRequest[] convertRequests = null;
-                if (response.isSuccess()) {
-                    convertRequests = Serializer.fromJson(response, response.getArray(), ConvertRequest[].class);
-                }
-                listener.onFinish(response, convertRequests);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), ConvertRequest[].class);
-        }
-        return null;
-    }
-
-    public static LinkedHashMap<Long, AppliedOperation> getAccountHistory(String name, long from, int limit, final OnGetAccountHistoryListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(name);
-        params.add(from);
-        params.add(limit);
-        Response response = Connection.execute("database_api", "get_account_history", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                LinkedHashMap<Long, AppliedOperation> operations = null;
-                if (response.isSuccess()) {
-                    operations = Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, Long.class, AppliedOperation.class);
-                }
-                listener.onFinish(response, operations);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, Long.class, AppliedOperation.class);
-        }
-        return null;
-    }
-
-    public static OwnerAuthorityHistory[] getOwnerHistory(String account, final OnGetOwnerHistoryListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        Response response = Connection.execute("database_api", "get_owner_history", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                OwnerAuthorityHistory[] history = null;
-                if (response.isSuccess()) {
-                    history = Serializer.fromJson(response, response.getArray(), OwnerAuthorityHistory[].class);
-                }
-                listener.onFinish(response, history);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), OwnerAuthorityHistory[].class);
-        }
-        return null;
-    }
-
-    public static AccountRecoveryRequest getRecoveryRequest(String account, final OnGetRecoveryRequestListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        Response response = Connection.execute("database_api", "get_recovery_request", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                AccountRecoveryRequest request = null;
-                if (response.isSuccess()) {
-                    request = Serializer.fromJson(response, response.getObject(), AccountRecoveryRequest.class);
-                }
-                listener.onFinish(response, request);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), AccountRecoveryRequest.class);
-        }
-        return null;
-    }
-
-    public static Escrow getEscrow(String from, UInteger escrowId, final OnGetEscrowListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(from);
-        params.add(escrowId);
-        Response response = Connection.execute("database_api", "get_escrow", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Escrow escrow = null;
-                if (response.isSuccess()) {
-                    escrow = Serializer.fromJson(response, response.getObject(), Escrow.class);
-                }
-                listener.onFinish(response, escrow);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Escrow.class);
-        }
-        return null;
-    }
-
-    public static WithdrawRoute[] getWithdrawRoutes(String account, String withdrawRouteType, final OnGetWithdrawRoutesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        params.add(withdrawRouteType);
-        Response response = Connection.execute("database_api", "get_withdraw_routes", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                WithdrawRoute[] routes = null;
-                if (response.isSuccess()) {
-                    routes = Serializer.fromJson(response, response.getArray(), WithdrawRoute[].class);
-                }
-                listener.onFinish(response, routes);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), WithdrawRoute[].class);
-        }
-        return null;
-    }
-
-    public static AccountBandwidth getAccountBandwidth(String account, String bandwidthType, final OnGetAccountBandwidthListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        params.add(bandwidthType);
-        Response response = Connection.execute("database_api", "get_account_bandwidth", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                AccountBandwidth bandwidth = null;
-                if (response.isSuccess()) {
-                    bandwidth = Serializer.fromJson(response, response.getObject(), AccountBandwidth.class);
-                }
-                listener.onFinish(response, bandwidth);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), AccountBandwidth.class);
-        }
-        return null;
-    }
-
-    public static SavingsWithdraw[] getSavingsWithdrawFrom(String account, final OnGetSavingsWithdrawListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        Response response = Connection.execute("database_api", "get_savings_withdraw_from", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                SavingsWithdraw[] withdraw = null;
-                if (response.isSuccess()) {
-                    withdraw = Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
-                }
-                listener.onFinish(response, withdraw);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
-        }
-        return null;
-    }
-
-    public static SavingsWithdraw[] getSavingsWithdrawTo(String account, final OnGetSavingsWithdrawListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        Response response = Connection.execute("database_api", "get_savings_withdraw_to", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                SavingsWithdraw[] withdraw = null;
-                if (response.isSuccess()) {
-                    withdraw = Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
-                }
-                listener.onFinish(response, withdraw);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), SavingsWithdraw[].class);
-        }
-        return null;
-    }
-
-    public static OrderBook getOrderBook(int limit, final OnGetOrderBookListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(limit);
-        Response response = Connection.execute("database_api", "get_order_book", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                OrderBook orderBook = null;
-                if (response.isSuccess()) {
-                    orderBook = Serializer.fromJson(response, response.getObject(), OrderBook.class);
-                }
-                listener.onFinish(response, orderBook);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), OrderBook.class);
-        }
-        return null;
-    }
-
-    public static ExtendedLimitOrder[] getOpenOrders(String owner, final OnGetOrdersListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(owner);
-        Response response = Connection.execute("database_api", "get_open_orders", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                ExtendedLimitOrder[] orders = null;
-                if (response.isSuccess()) {
-                    orders = Serializer.fromJson(response, response.getArray(), ExtendedLimitOrder[].class);
-                }
-                listener.onFinish(response, orders);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), ExtendedLimitOrder[].class);
-        }
-        return null;
-    }
-
-    public static String getTransactionHex(Transaction trx, final OnGetStringListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(trx);
-        Response response = Connection.execute("database_api", "get_transaction_hex", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                String string = null;
-                if (response.isSuccess()) {
-                    string = Serializer.fromJson(response, response.getObject(), String.class);
-                }
-                listener.onFinish(response, string);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), String.class);
-        }
-        return null;
-    }
-
-    public static AnnotatedTransaction getTransaction(Ripemd160 trxId, final OnGetAnnotatedTransactionListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(trxId);
-        Response response = Connection.execute("database_api", "get_transaction", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                AnnotatedTransaction transaction = null;
-                if (response.isSuccess()) {
-                    transaction = Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
-                }
-                listener.onFinish(response, transaction);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
-        }
-        return null;
-    }
-
-    public static PublicKey[] getRequiredSignatures(Transaction trx, PublicKey[] availableKeys, final OnGetPublicKeysListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(trx);
-        params.add(availableKeys);
-        Response response = Connection.execute("database_api", "get_required_signatures", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                PublicKey[] keys = null;
-                if (response.isSuccess()) {
-                    keys = Serializer.fromJson(response, response.getArray(), PublicKey[].class);
-                }
-                listener.onFinish(response, keys);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), PublicKey[].class);
-        }
-        return null;
-    }
-
-    public static PublicKey[] getPotentialSignatures(Transaction trx, final OnGetPublicKeysListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(trx);
-        Response response = Connection.execute("database_api", "get_potential_signatures", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                PublicKey[] keys = null;
-                if (response.isSuccess()) {
-                    keys = Serializer.fromJson(response, response.getArray(), PublicKey[].class);
-                }
-                listener.onFinish(response, keys);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), PublicKey[].class);
-        }
-        return null;
-    }
-
-    public static Boolean verifyAuthority(Transaction trx, final OnGetBooleanListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(trx);
-        Response response = Connection.execute("database_api", "verify_authority", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Boolean value = null;
-                if (response.isSuccess()) {
-                    value = Serializer.fromJson(response, response.getObject(), Boolean.class);
-                }
-                listener.onFinish(response, value);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Boolean.class);
-        }
-        return null;
-    }
-
-    public static Boolean verifyAccountAuthority(String nameOrId, PublicKey[] signers, final OnGetBooleanListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(nameOrId);
-        params.add(signers);
-        Response response = Connection.execute("database_api", "verify_account_authority", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Boolean value = null;
-                if (response.isSuccess()) {
-                    value = Serializer.fromJson(response, response.getObject(), Boolean.class);
-                }
-                listener.onFinish(response, value);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Boolean.class);
-        }
-        return null;
-    }
-
-    public static Witness[] getWitnesses(long[] witnessIds, final OnGetWitnessesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(witnessIds);
-        Response response = Connection.execute("database_api", "get_witnesses", params, listener == null ? null : new Connection.OnResponseListener() {
+    public static Witness[] listWitnesses(String start, int limit, String order, final OnGetWitnessesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_witnesses", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
                 Witness[] witnesses = null;
                 if (response.isSuccess()) {
-                    witnesses = Serializer.fromJson(response, response.getArray(), Witness[].class);
+                    witnesses = Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
                 }
                 listener.onFinish(response, witnesses);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), Witness[].class);
+            return Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
         }
         return null;
     }
 
-    public static Witness getWitnessByAccount(String accountName, final OnGetWitnessListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(accountName);
-        Response response = Connection.execute("database_api", "get_witness_by_account", params, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                Witness witness = null;
-                if (response.isSuccess()) {
-                    witness = Serializer.fromJson(response, response.getObject(), Witness.class);
-                }
-                listener.onFinish(response, witness);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Witness.class);
-        }
-        return null;
-    }
-
-    public static Witness[] getWitnessesByVote(String from, int limit, final OnGetWitnessesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(from);
-        params.add(limit);
-        Response response = Connection.execute("database_api", "get_witnesses_by_vote", params, listener == null ? null : new Connection.OnResponseListener() {
+    public static Witness[] findWitnesses(String[] owners, final OnGetWitnessesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owners", owners);
+        Response response = Connection.execute("database_api", "find_witnesses", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
                 Witness[] witnesses = null;
                 if (response.isSuccess()) {
-                    witnesses = Serializer.fromJson(response, response.getArray(), Witness[].class);
+                    witnesses = Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
                 }
                 listener.onFinish(response, witnesses);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), Witness[].class);
+            return Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
         }
         return null;
     }
 
-    public static String[] lookupWitnessAccounts(String lowerBoundName, int limit, final OnGetNamesListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(lowerBoundName);
-        params.add(limit);
-        Response response = Connection.execute("database_api", "lookup_witness_accounts", params, listener == null ? null : new Connection.OnResponseListener() {
+    public static WitnessVote[] listWitnessVotes(String start, int limit, String order, final OnGetWitnessVotesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_witness_votes", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
-                String[] names = null;
+                WitnessVote[] witnessVotes = null;
                 if (response.isSuccess()) {
-                    names = Serializer.fromJson(response, response.getArray(), String[].class);
+                    witnessVotes = Serializer.fromJson(response, response.getObjectField("votes"), WitnessVote[].class);
                 }
-                listener.onFinish(response, names);
+                listener.onFinish(response, witnessVotes);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), String[].class);
-        }
-        return null;
-    }
-
-    public static ULong getWitnessCount(final OnGetCountListener listener) {
-        Response response = Connection.execute("database_api", "get_witness_count", null, listener == null ? null : new Connection.OnResponseListener() {
-            @Override
-            public void onFinish(Response response) {
-                ULong count = null;
-                if (response.isSuccess()) {
-                    count = Serializer.fromJson(response, response.getObject(), ULong.class);
-                }
-                listener.onFinish(response, count);
-            }
-        });
-        if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), ULong.class);
+            return Serializer.fromJson(response, response.getObjectField("votes"), WitnessVote[].class);
         }
         return null;
     }
@@ -873,39 +488,726 @@ public class Amalgam {
             public void onFinish(Response response) {
                 String[] names = null;
                 if (response.isSuccess()) {
-                    names = Serializer.fromJson(response, response.getArray(), String[].class);
+                    names = Serializer.fromJson(response, response.getObjectField("witnesses"), String[].class);
                 }
                 listener.onFinish(response, names);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), String[].class);
+            return Serializer.fromJson(response, response.getObjectField("witnesses"), String[].class);
         }
         return null;
     }
 
-    public static VestingDelegation[] getVestingDelegations(String account, String from, int limit, final OnGetVestingDelegationsListener listener) {
-        ArrayList<Object> params = new ArrayList<>();
-        params.add(account);
-        params.add(from);
-        params.add(limit);
-        Response response = Connection.execute("database_api", "get_vesting_delegations", params, listener == null ? null : new Connection.OnResponseListener() {
+    public static Account[] listAccounts(String start, int limit, String order, final OnGetAccountsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_accounts", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
-                VestingDelegation[] names = null;
+                Account[] accounts = null;
                 if (response.isSuccess()) {
-                    names = Serializer.fromJson(response, response.getArray(), VestingDelegation[].class);
+                    accounts = Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
                 }
-                listener.onFinish(response, names);
+                listener.onFinish(response, accounts);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), VestingDelegation[].class);
+            return Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+        }
+        return null;
+    }
+
+    public static Account[] findAccounts(String[] accounts, final OnGetAccountsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("accounts", accounts);
+        Response response = Connection.execute("database_api", "find_accounts", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Account[] accounts = null;
+                if (response.isSuccess()) {
+                    accounts = Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+                }
+                listener.onFinish(response, accounts);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+        }
+        return null;
+    }
+
+    public static LinkedHashMap<Long, AppliedOperation> getAccountHistory(String account, long start, int limit, final OnGetAccountHistoryListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("start", start);
+        params.put("limit", limit);
+        Response response = Connection.execute("database_api", "get_account_history", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                LinkedHashMap<Long, AppliedOperation> operations = null;
+                if (response.isSuccess()) {
+                    operations = Serializer.fromJson(response, response.getObjectField("history"), LinkedHashMap.class, Long.class, AppliedOperation.class);
+                }
+                listener.onFinish(response, operations);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("history"), LinkedHashMap.class, Long.class, AppliedOperation.class);
+        }
+        return null;
+    }
+
+    public static AccountBandwidth getAccountBandwidth(String account, String type, final OnGetAccountBandwidthListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("type", type);
+        Response response = Connection.execute("database_api", "get_account_bandwidth", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                AccountBandwidth bandwidth = null;
+                if (response.isSuccess()) {
+                    bandwidth = Serializer.fromJson(response, response.getObjectField("bandwidth"), AccountBandwidth.class);
+                }
+                listener.onFinish(response, bandwidth);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("bandwidth"), AccountBandwidth.class);
+        }
+        return null;
+    }
+
+    public static OwnerAuthorityHistory[] listOwnerHistories(String start, int limit, final OnGetOwnerHistoryListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        Response response = Connection.execute("database_api", "list_owner_histories", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                OwnerAuthorityHistory[] history = null;
+                if (response.isSuccess()) {
+                    history = Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+                }
+                listener.onFinish(response, history);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+        }
+        return null;
+    }
+
+    public static OwnerAuthorityHistory[] findOwnerHistories(String owner, final OnGetOwnerHistoryListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        Response response = Connection.execute("database_api", "find_owner_histories", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                OwnerAuthorityHistory[] history = null;
+                if (response.isSuccess()) {
+                    history = Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+                }
+                listener.onFinish(response, history);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+        }
+        return null;
+    }
+
+    public static AccountRecoveryRequest[] listAccountRecoveryRequests(String start, int limit, String order, final OnGetRecoveryRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_account_recovery_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                AccountRecoveryRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+        }
+        return null;
+    }
+
+    public static AccountRecoveryRequest[] findAccountRecoveryRequests(String[] accounts, final OnGetRecoveryRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("accounts", accounts);
+        Response response = Connection.execute("database_api", "find_account_recovery_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                AccountRecoveryRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+        }
+        return null;
+    }
+
+    public static ChangeRecoveryAccountRequest[] listChangeRecoveryAccountRequests(String start, int limit, String order, final OnGetChangeRecoveryAccountRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_change_recovery_account_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ChangeRecoveryAccountRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+        }
+        return null;
+    }
+
+    public static ChangeRecoveryAccountRequest[] findChangeRecoveryAccountRequests(String[] accounts, final OnGetChangeRecoveryAccountRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("accounts", accounts);
+        Response response = Connection.execute("database_api", "find_change_recovery_account_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ChangeRecoveryAccountRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+        }
+        return null;
+    }
+
+    public static Escrow[] listEscrows(String start, int limit, String order, final OnGetEscrowsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_escrows", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Escrow[] escrows = null;
+                if (response.isSuccess()) {
+                    escrows = Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+                }
+                listener.onFinish(response, escrows);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+        }
+        return null;
+    }
+
+    public static Escrow[] findEscrows(String from, final OnGetEscrowsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        Response response = Connection.execute("database_api", "find_escrows", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Escrow[] escrows = null;
+                if (response.isSuccess()) {
+                    escrows = Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+                }
+                listener.onFinish(response, escrows);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+        }
+        return null;
+    }
+
+    public static WithdrawVestingRoute[] listWithdrawVestingRoutes(String start, int limit, String order, final OnGetWithdrawVestingRoutesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_withdraw_vesting_routes", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                WithdrawVestingRoute[] routes = null;
+                if (response.isSuccess()) {
+                    routes = Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+                }
+                listener.onFinish(response, routes);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+        }
+        return null;
+    }
+
+    public static WithdrawVestingRoute[] findWithdrawVestingRoutes(String account, String order, final OnGetWithdrawVestingRoutesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "find_withdraw_vesting_routes", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                WithdrawVestingRoute[] routes = null;
+                if (response.isSuccess()) {
+                    routes = Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+                }
+                listener.onFinish(response, routes);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+        }
+        return null;
+    }
+
+    public static SavingsWithdraw[] listSavingsWithdrawals(String start, int limit, String order, final OnGetSavingsWithdrawalsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_savings_withdrawals", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                SavingsWithdraw[] withdrawals = null;
+                if (response.isSuccess()) {
+                    withdrawals = Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+                }
+                listener.onFinish(response, withdrawals);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+        }
+        return null;
+    }
+
+    public static SavingsWithdraw[] findSavingsWithdrawals(String account, final OnGetSavingsWithdrawalsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "find_savings_withdrawals", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                SavingsWithdraw[] withdrawals = null;
+                if (response.isSuccess()) {
+                    withdrawals = Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+                }
+                listener.onFinish(response, withdrawals);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+        }
+        return null;
+    }
+
+    public static VestingDelegation[] listVestingDelegations(String start, int limit, String order, final OnGetVestingDelegationsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_vesting_delegations", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                VestingDelegation[] delegations = null;
+                if (response.isSuccess()) {
+                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+                }
+                listener.onFinish(response, delegations);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+        }
+        return null;
+    }
+
+    public static VestingDelegation[] findVestingDelegations(String account, final OnGetVestingDelegationsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "find_vesting_delegations", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                VestingDelegation[] delegations = null;
+                if (response.isSuccess()) {
+                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+                }
+                listener.onFinish(response, delegations);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+        }
+        return null;
+    }
+
+    public static VestingDelegationExpiration[] listVestingDelegationExpirations(String start, int limit, String order, final OnGetVestingDelegationExpirationsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_vesting_delegation_expirations", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                VestingDelegationExpiration[] delegations = null;
+                if (response.isSuccess()) {
+                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+                }
+                listener.onFinish(response, delegations);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+        }
+        return null;
+    }
+
+    public static VestingDelegationExpiration[] findVestingDelegationExpirations(String account, final OnGetVestingDelegationExpirationsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "find_vesting_delegation_expirations", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                VestingDelegationExpiration[] delegations = null;
+                if (response.isSuccess()) {
+                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+                }
+                listener.onFinish(response, delegations);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+        }
+        return null;
+    }
+
+    public static ConvertRequest[] listAbdConversionRequests(String start, int limit, String order, final OnGetAbdConversionRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_abd_conversion_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ConvertRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+        }
+        return null;
+    }
+
+    public static ConvertRequest[] findAbdConversionRequests(String account, final OnGetAbdConversionRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "find_abd_conversion_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ConvertRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+        }
+        return null;
+    }
+
+    public static DeclineVotingRightsRequest[] listDeclineVotingRightsRequests(String start, int limit, String order, final OnGetDeclineVotingRightsRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_decline_voting_rights_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                DeclineVotingRightsRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+        }
+        return null;
+    }
+
+    public static DeclineVotingRightsRequest[] findDeclineVotingRightsRequests(String[] accounts, final OnGetDeclineVotingRightsRequestsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("accounts", accounts);
+        Response response = Connection.execute("database_api", "find_decline_voting_rights_requests", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                DeclineVotingRightsRequest[] requests = null;
+                if (response.isSuccess()) {
+                    requests = Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+                }
+                listener.onFinish(response, requests);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+        }
+        return null;
+    }
+
+    public static LimitOrder[] listLimitOrders(String start, int limit, String order, final OnGetLimitOrdersListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("limit", limit);
+        params.put("order", order);
+        Response response = Connection.execute("database_api", "list_limit_orders", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                LimitOrder[] orders = null;
+                if (response.isSuccess()) {
+                    orders = Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+                }
+                listener.onFinish(response, orders);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+        }
+        return null;
+    }
+
+    public static LimitOrder[] findLimitOrders(String account, final OnGetLimitOrdersListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "find_limit_orders", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                LimitOrder[] orders = null;
+                if (response.isSuccess()) {
+                    orders = Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+                }
+                listener.onFinish(response, orders);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+        }
+        return null;
+    }
+
+    public static String getTransactionHex(Transaction trx, final OnGetStringListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("trx", trx);
+        Response response = Connection.execute("database_api", "get_transaction_hex", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                String string = null;
+                if (response.isSuccess()) {
+                    string = Serializer.fromJson(response, response.getObjectField("hex"), String.class);
+                }
+                listener.onFinish(response, string);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("hex"), String.class);
+        }
+        return null;
+    }
+
+    public static PublicKey[] getRequiredSignatures(Transaction trx, PublicKey[] availableKeys, final OnGetPublicKeysListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("trx", trx);
+        params.put("available_keys", availableKeys);
+        Response response = Connection.execute("database_api", "get_required_signatures", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                PublicKey[] keys = null;
+                if (response.isSuccess()) {
+                    keys = Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+                }
+                listener.onFinish(response, keys);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+        }
+        return null;
+    }
+
+    public static PublicKey[] getPotentialSignatures(Transaction trx, final OnGetPublicKeysListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("trx", trx);
+        Response response = Connection.execute("database_api", "get_potential_signatures", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                PublicKey[] keys = null;
+                if (response.isSuccess()) {
+                    keys = Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+                }
+                listener.onFinish(response, keys);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+        }
+        return null;
+    }
+
+    public static Boolean verifyAuthority(Transaction trx, final OnGetBooleanListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("trx", trx);
+        Response response = Connection.execute("database_api", "verify_authority", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Boolean value = null;
+                if (response.isSuccess()) {
+                    value = Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+                }
+                listener.onFinish(response, value);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+        }
+        return null;
+    }
+
+    public static Boolean verifyAccountAuthority(String account, PublicKey[] signers, final OnGetBooleanListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("signers", signers);
+        Response response = Connection.execute("database_api", "verify_account_authority", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Boolean value = null;
+                if (response.isSuccess()) {
+                    value = Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+                }
+                listener.onFinish(response, value);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+        }
+        return null;
+    }
+
+    public static Boolean verifySignatures(String hash, Signature[] signatures, String[] requiredOwner,
+                                           String[] requiredActive, String[] requiredPosting, Authority[] requiredOther,
+                                           final OnGetBooleanListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("hash", hash);
+        params.put("signatures", signatures);
+        params.put("required_owner", requiredOwner);
+        params.put("required_active", requiredActive);
+        params.put("required_posting", requiredPosting);
+        params.put("required_other", requiredOther);
+        Response response = Connection.execute("database_api", "verify_signatures", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Boolean value = null;
+                if (response.isSuccess()) {
+                    value = Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+                }
+                listener.onFinish(response, value);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+        }
+        return null;
+    }
+
+    // Account By Key API
+
+    public static List<String>[] getKeyReferences(PublicKey[] keys, final OnGetKeyReferencesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("keys", keys);
+        Response response = Connection.execute("account_by_key_api", "get_key_references", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                List<String>[] accounts = null;
+                if (response.isSuccess()) {
+                    accounts = Serializer.fromJson(response, response.getObjectField("accounts"), List[].class, String.class);
+                }
+                listener.onFinish(response, accounts);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObjectField("accounts"), List[].class, String.class);
         }
         return null;
     }
 
     // Network broadcast API
+
+    public static void broadcastTransaction(Transaction trx, final OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("trx", trx);
+        Connection.execute("network_broadcast_api", "broadcast_transaction", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                listener.onFinish(response);
+            }
+        });
+    }
+
+    public static BroadcastResult broadcastTransactionSynchronous(Transaction trx, final OnBroadcastResultListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("trx", trx);
+        Response response = Connection.execute("network_broadcast_api", "broadcast_transaction_synchronous", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                BroadcastResult result = null;
+                if (response.isSuccess()) {
+                    result = Serializer.fromJson(response, response.getObject(), BroadcastResult.class);
+                }
+                listener.onFinish(response, result);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getObject(), BroadcastResult.class);
+        }
+        return null;
+    }
+
+    public static void broadcastBlock(SignedBlock block, final OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("block", block);
+        Connection.execute("network_broadcast_api", "broadcast_block", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                listener.onFinish(response);
+            }
+        });
+    }
+
+    // Operations
 
     public static Response transfer(PrivateKey privateKey, String from, String to, Asset amount, String memo,
                                     boolean prepare, Connection.OnResponseListener listener) {
@@ -1184,13 +1486,22 @@ public class Amalgam {
         return Connection.broadcast(privateKey, "delegate_vesting_shares", params, prepare, listener);
     }
 
+    public static Response witnessSetProperties(PrivateKey privateKey, String owner, List<String> props, List<FutureExtensions> extensions,
+                                                boolean prepare, Connection.OnResponseListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("owner", owner);
+        params.put("props", props);
+        params.put("extensions", extensions);
+        return Connection.broadcast(privateKey, "witness_set_properties", params, prepare, listener);
+    }
+
     // Helper functions
 
-    public static ExtendedAccount getAccount(String name, final OnGetExtendedAccountListener listener) {
-        ExtendedAccount[] accounts = getAccounts(new String[]{name}, listener == null ? null : new OnGetExtendedAccountsListener() {
+    public static Account getAccount(String name, final OnGetAccountListener listener) {
+        Account[] accounts = findAccounts(new String[]{name}, listener == null ? null : new OnGetAccountsListener() {
             @Override
-            public void onFinish(Response response, ExtendedAccount[] accounts) {
-                ExtendedAccount account = null;
+            public void onFinish(Response response, Account[] accounts) {
+                Account account = null;
                 if (response.isSuccess()) {
                     if (accounts.length > 0) {
                         account = accounts[0];

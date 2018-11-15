@@ -3,7 +3,6 @@ package com.tmlab.amalgamj;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -13,7 +12,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -38,7 +36,7 @@ public class Connection {
         mNodeUrl = nodeUrl;
     }
 
-    public static Response execute(final String apiName, final String command, final ArrayList<Object> params,
+    public static Response execute(final String apiName, final String command, final LinkedHashMap<String, Object> params,
                                    final OnResponseListener listener) {
         if (listener == null) {
             return executeInternal(apiName, command, params);
@@ -82,18 +80,14 @@ public class Connection {
         }
     }
 
-    public static String getJsonCommand(String apiName, String command, ArrayList<Object> params) throws Exception {
+    public static String getJsonCommand(String apiName, String command, LinkedHashMap<String, Object> params) throws Exception {
         JSONObject object = new JSONObject();
         object.put("jsonrpc", "2.0");
-        object.put("method", "call");
-        JSONArray callParams = new JSONArray();
-        callParams.put(apiName);
-        callParams.put(command);
+        object.put("method", apiName + "." + command);
         if (params == null) {
-            params = new ArrayList<>();
+            params = new LinkedHashMap<>();
         }
-        callParams.put(new JSONArray(Serializer.toJson(params)));
-        object.put("params", callParams);
+        object.put("params", new JSONObject(Serializer.toJson(params)));
         object.put("id", mId);
         return object.toString();
     }
@@ -104,8 +98,8 @@ public class Connection {
             Transaction transaction = Transaction.prepare();
             transaction.addOperation(new Operation(command, params));
             transaction.sign(privateKey);
-            ArrayList<Object> execParams = new ArrayList<>();
-            execParams.add(transaction);
+            LinkedHashMap<String, Object> execParams = new LinkedHashMap<>();
+            execParams.put("trx", transaction);
             if (prepare) {
                 response.setRequest(getJsonCommand("network_broadcast_api", "broadcast_transaction_synchronous", execParams));
                 response.setSuccess();
@@ -119,7 +113,7 @@ public class Connection {
         return response;
     }
 
-    private static Response executeInternal(String apiName, String command, ArrayList<Object> params) {
+    private static Response executeInternal(String apiName, String command, LinkedHashMap<String, Object> params) {
         Response result = new Response();
         try {
             mId++;

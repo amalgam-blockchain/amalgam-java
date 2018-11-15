@@ -12,7 +12,7 @@ public class WitnessSchedule {
     public UInteger next_shuffle_block_num;
     public String current_shuffled_witnesses;
     public UByte num_scheduled_witnesses;
-    public UByte top_weight;
+    public UByte elected_weight;
     public UByte timeshare_weight;
     public UInteger witness_pay_normalization_factor;
     public ChainProperties median_props;

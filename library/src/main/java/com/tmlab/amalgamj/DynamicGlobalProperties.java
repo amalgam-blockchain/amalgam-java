@@ -27,9 +27,9 @@ public class DynamicGlobalProperties {
     public BigInteger recent_slots_filled;
     public UByte participation_count;
     public UInteger last_irreversible_block_num;
-    public UInteger current_reserve_ratio;
-    public BigInteger average_block_size;
-    public BigInteger max_virtual_bandwidth;
+    public UInteger delegation_return_period;
+    public UInteger abd_stop_percent;
+    public UInteger abd_start_percent;
 
     public Price getVestingSharePrice() {
         if ((total_vesting_fund_amalgam.amount == 0) || (total_vesting_shares.amount == 0)) {

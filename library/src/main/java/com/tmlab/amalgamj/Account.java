@@ -1,7 +1,6 @@
 package com.tmlab.amalgamj;
 
 import org.joou.UByte;
-import org.joou.UInteger;
 import org.joou.UShort;
 
 import java.math.BigInteger;
@@ -45,10 +44,4 @@ public class Account {
     public UShort withdraw_routes;
     public List<Long> proxied_vsf_votes;
     public UShort witnesses_voted_for;
-    public long average_bandwidth;
-    public long lifetime_bandwidth;
-    public TimePointSec last_bandwidth_update;
-    public long average_market_bandwidth;
-    public long lifetime_market_bandwidth;
-    public TimePointSec last_market_bandwidth_update;
 }
