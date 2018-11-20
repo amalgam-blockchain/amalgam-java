@@ -109,7 +109,7 @@ public class Response extends JSONObject {
         JSONObject result = new JSONObject();
         JSONObject object = getJSONObject("result");
         try {
-            if (has(name)) {
+            if (object.has(name)) {
                 result = object.getJSONObject(name);
             }
         } catch (JSONException e) {

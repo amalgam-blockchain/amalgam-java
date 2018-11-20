@@ -30,7 +30,7 @@ public class Transaction {
         params.put("block_num", properties.last_irreversible_block_num);
         response = Connection.execute("database_api", "get_block_header", params, null);
         response.checkError();
-        BlockHeader blockHeader = Serializer.fromJson(response, response.getObject(), BlockHeader.class);
+        BlockHeader blockHeader = Serializer.fromJson(response, response.getObjectField("header"), BlockHeader.class);
         Transaction transaction = new Transaction();
         transaction.ref_block_num = UShort.valueOf(properties.last_irreversible_block_num.subtract(1).intValue() & 0xFFFF);
         transaction.ref_block_prefix = blockHeader.previous.getPrefix();
