@@ -2,7 +2,6 @@ package com.tmlab.amalgamj;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -64,6 +63,8 @@ public class Operation extends StaticVariant {
         "clear_null_account_balance"
     );
 
+    private final static String SUFFIX = "_operation";
+
     public Operation(String name, LinkedHashMap<String, Object> params) {
         this.name = name;
         this.params = params;
@@ -74,20 +75,24 @@ public class Operation extends StaticVariant {
         return OPERATIONS.indexOf(name);
     }
 
-    public static Operation deserialize(ArrayList<Object> list) {
-        LinkedTreeMap<String, Object> map = (LinkedTreeMap) list.get(1);
+    public static Operation deserialize(LinkedHashMap<String, Object> list) {
+        LinkedTreeMap<String, Object> map = (LinkedTreeMap) list.get("value");
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         for (Map.Entry<String, Object> item : map.entrySet()) {
             params.put(item.getKey(), item.getValue());
         }
-        return new Operation((String) list.get(0), params);
+        String name = (String) list.get("type");
+        if (name.endsWith(SUFFIX)) {
+            name = name.substring(0, name.length() - SUFFIX.length());
+        }
+        return new Operation(name, params);
     }
 
     @Override
-    public ArrayList<Object> serialize() {
-        ArrayList<Object> list = new ArrayList<>();
-        list.add(name);
-        list.add(params);
+    public LinkedHashMap<String, Object> serialize() {
+        LinkedHashMap<String, Object> list = new LinkedHashMap<>();
+        list.put("type", name + SUFFIX);
+        list.put("value", params);
         return list;
     }
 }

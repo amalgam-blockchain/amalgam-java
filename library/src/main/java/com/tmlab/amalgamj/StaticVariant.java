@@ -1,6 +1,5 @@
 package com.tmlab.amalgamj;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class StaticVariant {
@@ -13,10 +12,10 @@ public class StaticVariant {
         return id;
     }
 
-    public ArrayList<Object> serialize() {
-        ArrayList<Object> list = new ArrayList<>();
-        list.add(getId());
-        list.add(params);
+    public LinkedHashMap<String, Object> serialize() {
+        LinkedHashMap<String, Object> list = new LinkedHashMap<>();
+        list.put("type", getId());
+        list.put("value", params);
         return list;
     }
 }

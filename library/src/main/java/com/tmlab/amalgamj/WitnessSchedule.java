@@ -4,13 +4,14 @@ import org.joou.UByte;
 import org.joou.UInteger;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class WitnessSchedule {
 
     public long id;
     public BigInteger current_virtual_time;
     public UInteger next_shuffle_block_num;
-    public String current_shuffled_witnesses;
+    public List<String> current_shuffled_witnesses;
     public UByte num_scheduled_witnesses;
     public UByte elected_weight;
     public UByte timeshare_weight;

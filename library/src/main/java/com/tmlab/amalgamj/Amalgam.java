@@ -199,13 +199,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 BlockHeader blockHeader = null;
                 if (response.isSuccess()) {
-                    blockHeader = Serializer.fromJson(response, response.getObject(), BlockHeader.class);
+                    blockHeader = Serializer.fromJson(response, response.getObjectField("header"), BlockHeader.class);
                 }
                 listener.onFinish(response, blockHeader);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), BlockHeader.class);
+            return Serializer.fromJson(response, response.getObjectField("header"), BlockHeader.class);
         }
         return null;
     }
@@ -218,13 +218,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Block block = null;
                 if (response.isSuccess()) {
-                    block = Serializer.fromJson(response, response.getObject(), Block.class);
+                    block = Serializer.fromJson(response, response.getObjectField("block"), Block.class);
                 }
                 listener.onFinish(response, block);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Block.class);
+            return Serializer.fromJson(response, response.getObjectField("block"), Block.class);
         }
         return null;
     }

@@ -10,7 +10,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import org.joou.UByte;
@@ -333,7 +332,7 @@ public class Serializer {
         @Override
         public Operation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             try {
-                ArrayList<Object> list = context.deserialize(json, ArrayList.class);
+                LinkedHashMap<String, Object> list = context.deserialize(json, ArrayList.class);
                 return Operation.deserialize(list);
             } catch (Exception e) {
                 throw new JsonParseException(e);
