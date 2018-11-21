@@ -4,10 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import org.joou.UInteger;
-import org.joou.ULong;
 import org.joou.UShort;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -199,13 +197,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 BlockHeader blockHeader = null;
                 if (response.isSuccess()) {
-                    blockHeader = Serializer.fromJson(response, response.getObjectField("header"), BlockHeader.class);
+                    blockHeader = Serializer.fromJson(response, response.getResult(), BlockHeader.class);
                 }
                 listener.onFinish(response, blockHeader);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("header"), BlockHeader.class);
+            return Serializer.fromJson(response, response.getResult(), BlockHeader.class);
         }
         return null;
     }
@@ -218,13 +216,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Block block = null;
                 if (response.isSuccess()) {
-                    block = Serializer.fromJson(response, response.getObjectField("block"), Block.class);
+                    block = Serializer.fromJson(response, response.getResult(), Block.class);
                 }
                 listener.onFinish(response, block);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("block"), Block.class);
+            return Serializer.fromJson(response, response.getResult(), Block.class);
         }
         return null;
     }
@@ -238,13 +236,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 AppliedOperation[] operations = null;
                 if (response.isSuccess()) {
-                    operations = Serializer.fromJson(response, response.getObjectField("ops"), AppliedOperation[].class);
+                    operations = Serializer.fromJson(response, response.getResult(), AppliedOperation[].class);
                 }
                 listener.onFinish(response, operations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("ops"), AppliedOperation[].class);
+            return Serializer.fromJson(response, response.getResult(), AppliedOperation[].class);
         }
         return null;
     }
@@ -257,13 +255,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 AnnotatedTransaction transaction = null;
                 if (response.isSuccess()) {
-                    transaction = Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
+                    transaction = Serializer.fromJson(response, response.getResult(), AnnotatedTransaction.class);
                 }
                 listener.onFinish(response, transaction);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), AnnotatedTransaction.class);
+            return Serializer.fromJson(response, response.getResult(), AnnotatedTransaction.class);
         }
         return null;
     }
@@ -274,13 +272,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 LinkedHashMap<String, String> config = null;
                 if (response.isSuccess()) {
-                    config = Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, String.class, String.class);
+                    config = Serializer.fromJson(response, response.getResult(), LinkedHashMap.class, String.class, String.class);
                 }
                 listener.onFinish(response, config);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getArray(), LinkedHashMap.class, String.class, String.class);
+            return Serializer.fromJson(response, response.getResult(), LinkedHashMap.class, String.class, String.class);
         }
         return null;
     }
@@ -291,13 +289,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Version version = null;
                 if (response.isSuccess()) {
-                    version = Serializer.fromJson(response, response.getObject(), Version.class);
+                    version = Serializer.fromJson(response, response.getResult(), Version.class);
                 }
                 listener.onFinish(response, version);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Version.class);
+            return Serializer.fromJson(response, response.getResult(), Version.class);
         }
         return null;
     }
@@ -308,13 +306,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 DynamicGlobalProperties properties = null;
                 if (response.isSuccess()) {
-                    properties = Serializer.fromJson(response, response.getObject(), DynamicGlobalProperties.class);
+                    properties = Serializer.fromJson(response, response.getResult(), DynamicGlobalProperties.class);
                 }
                 listener.onFinish(response, properties);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), DynamicGlobalProperties.class);
+            return Serializer.fromJson(response, response.getResult(), DynamicGlobalProperties.class);
         }
         return null;
     }
@@ -325,13 +323,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 ChainProperties properties = null;
                 if (response.isSuccess()) {
-                    properties = Serializer.fromJson(response, response.getObject(), ChainProperties.class);
+                    properties = Serializer.fromJson(response, response.getResult(), ChainProperties.class);
                 }
                 listener.onFinish(response, properties);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), ChainProperties.class);
+            return Serializer.fromJson(response, response.getResult(), ChainProperties.class);
         }
         return null;
     }
@@ -342,13 +340,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 WitnessSchedule witnessSchedule = null;
                 if (response.isSuccess()) {
-                    witnessSchedule = Serializer.fromJson(response, response.getObject(), WitnessSchedule.class);
+                    witnessSchedule = Serializer.fromJson(response, response.getResult(), WitnessSchedule.class);
                 }
                 listener.onFinish(response, witnessSchedule);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), WitnessSchedule.class);
+            return Serializer.fromJson(response, response.getResult(), WitnessSchedule.class);
         }
         return null;
     }
@@ -359,13 +357,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 ReserveRatio reserveRatio = null;
                 if (response.isSuccess()) {
-                    reserveRatio = Serializer.fromJson(response, response.getObject(), ReserveRatio.class);
+                    reserveRatio = Serializer.fromJson(response, response.getResult(), ReserveRatio.class);
                 }
                 listener.onFinish(response, reserveRatio);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), ReserveRatio.class);
+            return Serializer.fromJson(response, response.getResult(), ReserveRatio.class);
         }
         return null;
     }
@@ -376,13 +374,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 HardforkProperties hardforkProperties = null;
                 if (response.isSuccess()) {
-                    hardforkProperties = Serializer.fromJson(response, response.getObject(), HardforkProperties.class);
+                    hardforkProperties = Serializer.fromJson(response, response.getResult(), HardforkProperties.class);
                 }
                 listener.onFinish(response, hardforkProperties);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), HardforkProperties.class);
+            return Serializer.fromJson(response, response.getResult(), HardforkProperties.class);
         }
         return null;
     }
@@ -393,13 +391,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Price price = null;
                 if (response.isSuccess()) {
-                    price = Serializer.fromJson(response, response.getObject(), Price.class);
+                    price = Serializer.fromJson(response, response.getResult(), Price.class);
                 }
                 listener.onFinish(response, price);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), Price.class);
+            return Serializer.fromJson(response, response.getResult(), Price.class);
         }
         return null;
     }
@@ -410,18 +408,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 FeedHistory feedHistory = null;
                 if (response.isSuccess()) {
-                    feedHistory = Serializer.fromJson(response, response.getObject(), FeedHistory.class);
+                    feedHistory = Serializer.fromJson(response, response.getResult(), FeedHistory.class);
                 }
                 listener.onFinish(response, feedHistory);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), FeedHistory.class);
+            return Serializer.fromJson(response, response.getResult(), FeedHistory.class);
         }
         return null;
     }
 
-    public static Witness[] listWitnesses(String start, int limit, String order, final OnGetWitnessesListener listener) {
+    public static Witness[] listWitnesses(Object start, int limit, String order, final OnGetWitnessesListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -431,13 +429,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Witness[] witnesses = null;
                 if (response.isSuccess()) {
-                    witnesses = Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
+                    witnesses = Serializer.fromJson(response, response.getResult(), Witness[].class);
                 }
                 listener.onFinish(response, witnesses);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
+            return Serializer.fromJson(response, response.getResult(), Witness[].class);
         }
         return null;
     }
@@ -450,18 +448,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Witness[] witnesses = null;
                 if (response.isSuccess()) {
-                    witnesses = Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
+                    witnesses = Serializer.fromJson(response, response.getResult(), Witness[].class);
                 }
                 listener.onFinish(response, witnesses);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("witnesses"), Witness[].class);
+            return Serializer.fromJson(response, response.getResult(), Witness[].class);
         }
         return null;
     }
 
-    public static WitnessVote[] listWitnessVotes(String start, int limit, String order, final OnGetWitnessVotesListener listener) {
+    public static WitnessVote[] listWitnessVotes(Object start, int limit, String order, final OnGetWitnessVotesListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -471,13 +469,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 WitnessVote[] witnessVotes = null;
                 if (response.isSuccess()) {
-                    witnessVotes = Serializer.fromJson(response, response.getObjectField("votes"), WitnessVote[].class);
+                    witnessVotes = Serializer.fromJson(response, response.getResult(), WitnessVote[].class);
                 }
                 listener.onFinish(response, witnessVotes);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("votes"), WitnessVote[].class);
+            return Serializer.fromJson(response, response.getResult(), WitnessVote[].class);
         }
         return null;
     }
@@ -488,18 +486,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 String[] names = null;
                 if (response.isSuccess()) {
-                    names = Serializer.fromJson(response, response.getObjectField("witnesses"), String[].class);
+                    names = Serializer.fromJson(response, response.getResult(), String[].class);
                 }
                 listener.onFinish(response, names);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("witnesses"), String[].class);
+            return Serializer.fromJson(response, response.getResult(), String[].class);
         }
         return null;
     }
 
-    public static Account[] listAccounts(String start, int limit, String order, final OnGetAccountsListener listener) {
+    public static Account[] listAccounts(Object start, int limit, String order, final OnGetAccountsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -509,13 +507,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Account[] accounts = null;
                 if (response.isSuccess()) {
-                    accounts = Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+                    accounts = Serializer.fromJson(response, response.getResult(), Account[].class);
                 }
                 listener.onFinish(response, accounts);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+            return Serializer.fromJson(response, response.getResult(), Account[].class);
         }
         return null;
     }
@@ -528,13 +526,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Account[] accounts = null;
                 if (response.isSuccess()) {
-                    accounts = Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+                    accounts = Serializer.fromJson(response, response.getResult(), Account[].class);
                 }
                 listener.onFinish(response, accounts);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("accounts"), Account[].class);
+            return Serializer.fromJson(response, response.getResult(), Account[].class);
         }
         return null;
     }
@@ -549,13 +547,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 LinkedHashMap<Long, AppliedOperation> operations = null;
                 if (response.isSuccess()) {
-                    operations = Serializer.fromJson(response, response.getObjectField("history"), LinkedHashMap.class, Long.class, AppliedOperation.class);
+                    operations = Serializer.fromJson(response, response.getResult(), LinkedHashMap.class, Long.class, AppliedOperation.class);
                 }
                 listener.onFinish(response, operations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("history"), LinkedHashMap.class, Long.class, AppliedOperation.class);
+            return Serializer.fromJson(response, response.getResult(), LinkedHashMap.class, Long.class, AppliedOperation.class);
         }
         return null;
     }
@@ -569,18 +567,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 AccountBandwidth bandwidth = null;
                 if (response.isSuccess()) {
-                    bandwidth = Serializer.fromJson(response, response.getObjectField("bandwidth"), AccountBandwidth.class);
+                    bandwidth = Serializer.fromJson(response, response.getResult(), AccountBandwidth.class);
                 }
                 listener.onFinish(response, bandwidth);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("bandwidth"), AccountBandwidth.class);
+            return Serializer.fromJson(response, response.getResult(), AccountBandwidth.class);
         }
         return null;
     }
 
-    public static OwnerAuthorityHistory[] listOwnerHistories(String start, int limit, final OnGetOwnerHistoryListener listener) {
+    public static OwnerAuthorityHistory[] listOwnerHistories(Object start, int limit, final OnGetOwnerHistoryListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -589,13 +587,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 OwnerAuthorityHistory[] history = null;
                 if (response.isSuccess()) {
-                    history = Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+                    history = Serializer.fromJson(response, response.getResult(), OwnerAuthorityHistory[].class);
                 }
                 listener.onFinish(response, history);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+            return Serializer.fromJson(response, response.getResult(), OwnerAuthorityHistory[].class);
         }
         return null;
     }
@@ -608,18 +606,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 OwnerAuthorityHistory[] history = null;
                 if (response.isSuccess()) {
-                    history = Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+                    history = Serializer.fromJson(response, response.getResult(), OwnerAuthorityHistory[].class);
                 }
                 listener.onFinish(response, history);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("owner_auths"), OwnerAuthorityHistory[].class);
+            return Serializer.fromJson(response, response.getResult(), OwnerAuthorityHistory[].class);
         }
         return null;
     }
 
-    public static AccountRecoveryRequest[] listAccountRecoveryRequests(String start, int limit, String order, final OnGetRecoveryRequestsListener listener) {
+    public static AccountRecoveryRequest[] listAccountRecoveryRequests(Object start, int limit, String order, final OnGetRecoveryRequestsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -629,13 +627,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 AccountRecoveryRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), AccountRecoveryRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), AccountRecoveryRequest[].class);
         }
         return null;
     }
@@ -648,18 +646,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 AccountRecoveryRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), AccountRecoveryRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), AccountRecoveryRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), AccountRecoveryRequest[].class);
         }
         return null;
     }
 
-    public static ChangeRecoveryAccountRequest[] listChangeRecoveryAccountRequests(String start, int limit, String order, final OnGetChangeRecoveryAccountRequestsListener listener) {
+    public static ChangeRecoveryAccountRequest[] listChangeRecoveryAccountRequests(Object start, int limit, String order, final OnGetChangeRecoveryAccountRequestsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -669,13 +667,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 ChangeRecoveryAccountRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), ChangeRecoveryAccountRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), ChangeRecoveryAccountRequest[].class);
         }
         return null;
     }
@@ -688,18 +686,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 ChangeRecoveryAccountRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), ChangeRecoveryAccountRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), ChangeRecoveryAccountRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), ChangeRecoveryAccountRequest[].class);
         }
         return null;
     }
 
-    public static Escrow[] listEscrows(String start, int limit, String order, final OnGetEscrowsListener listener) {
+    public static Escrow[] listEscrows(Object start, int limit, String order, final OnGetEscrowsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -709,13 +707,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Escrow[] escrows = null;
                 if (response.isSuccess()) {
-                    escrows = Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+                    escrows = Serializer.fromJson(response, response.getResult(), Escrow[].class);
                 }
                 listener.onFinish(response, escrows);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+            return Serializer.fromJson(response, response.getResult(), Escrow[].class);
         }
         return null;
     }
@@ -728,18 +726,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Escrow[] escrows = null;
                 if (response.isSuccess()) {
-                    escrows = Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+                    escrows = Serializer.fromJson(response, response.getResult(), Escrow[].class);
                 }
                 listener.onFinish(response, escrows);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("escrows"), Escrow[].class);
+            return Serializer.fromJson(response, response.getResult(), Escrow[].class);
         }
         return null;
     }
 
-    public static WithdrawVestingRoute[] listWithdrawVestingRoutes(String start, int limit, String order, final OnGetWithdrawVestingRoutesListener listener) {
+    public static WithdrawVestingRoute[] listWithdrawVestingRoutes(Object start, int limit, String order, final OnGetWithdrawVestingRoutesListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -749,13 +747,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 WithdrawVestingRoute[] routes = null;
                 if (response.isSuccess()) {
-                    routes = Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+                    routes = Serializer.fromJson(response, response.getResult(), WithdrawVestingRoute[].class);
                 }
                 listener.onFinish(response, routes);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+            return Serializer.fromJson(response, response.getResult(), WithdrawVestingRoute[].class);
         }
         return null;
     }
@@ -769,18 +767,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 WithdrawVestingRoute[] routes = null;
                 if (response.isSuccess()) {
-                    routes = Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+                    routes = Serializer.fromJson(response, response.getResult(), WithdrawVestingRoute[].class);
                 }
                 listener.onFinish(response, routes);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("routes"), WithdrawVestingRoute[].class);
+            return Serializer.fromJson(response, response.getResult(), WithdrawVestingRoute[].class);
         }
         return null;
     }
 
-    public static SavingsWithdraw[] listSavingsWithdrawals(String start, int limit, String order, final OnGetSavingsWithdrawalsListener listener) {
+    public static SavingsWithdraw[] listSavingsWithdrawals(Object start, int limit, String order, final OnGetSavingsWithdrawalsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -790,13 +788,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 SavingsWithdraw[] withdrawals = null;
                 if (response.isSuccess()) {
-                    withdrawals = Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+                    withdrawals = Serializer.fromJson(response, response.getResult(), SavingsWithdraw[].class);
                 }
                 listener.onFinish(response, withdrawals);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+            return Serializer.fromJson(response, response.getResult(), SavingsWithdraw[].class);
         }
         return null;
     }
@@ -809,18 +807,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 SavingsWithdraw[] withdrawals = null;
                 if (response.isSuccess()) {
-                    withdrawals = Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+                    withdrawals = Serializer.fromJson(response, response.getResult(), SavingsWithdraw[].class);
                 }
                 listener.onFinish(response, withdrawals);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("withdrawals"), SavingsWithdraw[].class);
+            return Serializer.fromJson(response, response.getResult(), SavingsWithdraw[].class);
         }
         return null;
     }
 
-    public static VestingDelegation[] listVestingDelegations(String start, int limit, String order, final OnGetVestingDelegationsListener listener) {
+    public static VestingDelegation[] listVestingDelegations(Object start, int limit, String order, final OnGetVestingDelegationsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -830,13 +828,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 VestingDelegation[] delegations = null;
                 if (response.isSuccess()) {
-                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+                    delegations = Serializer.fromJson(response, response.getResult(), VestingDelegation[].class);
                 }
                 listener.onFinish(response, delegations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+            return Serializer.fromJson(response, response.getResult(), VestingDelegation[].class);
         }
         return null;
     }
@@ -849,18 +847,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 VestingDelegation[] delegations = null;
                 if (response.isSuccess()) {
-                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+                    delegations = Serializer.fromJson(response, response.getResult(), VestingDelegation[].class);
                 }
                 listener.onFinish(response, delegations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegation[].class);
+            return Serializer.fromJson(response, response.getResult(), VestingDelegation[].class);
         }
         return null;
     }
 
-    public static VestingDelegationExpiration[] listVestingDelegationExpirations(String start, int limit, String order, final OnGetVestingDelegationExpirationsListener listener) {
+    public static VestingDelegationExpiration[] listVestingDelegationExpirations(Object start, int limit, String order, final OnGetVestingDelegationExpirationsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -870,13 +868,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 VestingDelegationExpiration[] delegations = null;
                 if (response.isSuccess()) {
-                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+                    delegations = Serializer.fromJson(response, response.getResult(), VestingDelegationExpiration[].class);
                 }
                 listener.onFinish(response, delegations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+            return Serializer.fromJson(response, response.getResult(), VestingDelegationExpiration[].class);
         }
         return null;
     }
@@ -889,18 +887,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 VestingDelegationExpiration[] delegations = null;
                 if (response.isSuccess()) {
-                    delegations = Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+                    delegations = Serializer.fromJson(response, response.getResult(), VestingDelegationExpiration[].class);
                 }
                 listener.onFinish(response, delegations);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("delegations"), VestingDelegationExpiration[].class);
+            return Serializer.fromJson(response, response.getResult(), VestingDelegationExpiration[].class);
         }
         return null;
     }
 
-    public static ConvertRequest[] listAbdConversionRequests(String start, int limit, String order, final OnGetAbdConversionRequestsListener listener) {
+    public static ConvertRequest[] listAbdConversionRequests(Object start, int limit, String order, final OnGetAbdConversionRequestsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -910,13 +908,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 ConvertRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), ConvertRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), ConvertRequest[].class);
         }
         return null;
     }
@@ -929,18 +927,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 ConvertRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), ConvertRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), ConvertRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), ConvertRequest[].class);
         }
         return null;
     }
 
-    public static DeclineVotingRightsRequest[] listDeclineVotingRightsRequests(String start, int limit, String order, final OnGetDeclineVotingRightsRequestsListener listener) {
+    public static DeclineVotingRightsRequest[] listDeclineVotingRightsRequests(Object start, int limit, String order, final OnGetDeclineVotingRightsRequestsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -950,13 +948,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 DeclineVotingRightsRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), DeclineVotingRightsRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), DeclineVotingRightsRequest[].class);
         }
         return null;
     }
@@ -969,18 +967,18 @@ public class Amalgam {
             public void onFinish(Response response) {
                 DeclineVotingRightsRequest[] requests = null;
                 if (response.isSuccess()) {
-                    requests = Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+                    requests = Serializer.fromJson(response, response.getResult(), DeclineVotingRightsRequest[].class);
                 }
                 listener.onFinish(response, requests);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("requests"), DeclineVotingRightsRequest[].class);
+            return Serializer.fromJson(response, response.getResult(), DeclineVotingRightsRequest[].class);
         }
         return null;
     }
 
-    public static LimitOrder[] listLimitOrders(String start, int limit, String order, final OnGetLimitOrdersListener listener) {
+    public static LimitOrder[] listLimitOrders(Object start, int limit, String order, final OnGetLimitOrdersListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
         params.put("limit", limit);
@@ -990,13 +988,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 LimitOrder[] orders = null;
                 if (response.isSuccess()) {
-                    orders = Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+                    orders = Serializer.fromJson(response, response.getResult(), LimitOrder[].class);
                 }
                 listener.onFinish(response, orders);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+            return Serializer.fromJson(response, response.getResult(), LimitOrder[].class);
         }
         return null;
     }
@@ -1009,13 +1007,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 LimitOrder[] orders = null;
                 if (response.isSuccess()) {
-                    orders = Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+                    orders = Serializer.fromJson(response, response.getResult(), LimitOrder[].class);
                 }
                 listener.onFinish(response, orders);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("orders"), LimitOrder[].class);
+            return Serializer.fromJson(response, response.getResult(), LimitOrder[].class);
         }
         return null;
     }
@@ -1028,13 +1026,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 String string = null;
                 if (response.isSuccess()) {
-                    string = Serializer.fromJson(response, response.getObjectField("hex"), String.class);
+                    string = Serializer.fromJson(response, response.getResult(), String.class);
                 }
                 listener.onFinish(response, string);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("hex"), String.class);
+            return Serializer.fromJson(response, response.getResult(), String.class);
         }
         return null;
     }
@@ -1048,13 +1046,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 PublicKey[] keys = null;
                 if (response.isSuccess()) {
-                    keys = Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+                    keys = Serializer.fromJson(response, response.getResult(), PublicKey[].class);
                 }
                 listener.onFinish(response, keys);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+            return Serializer.fromJson(response, response.getResult(), PublicKey[].class);
         }
         return null;
     }
@@ -1067,13 +1065,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 PublicKey[] keys = null;
                 if (response.isSuccess()) {
-                    keys = Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+                    keys = Serializer.fromJson(response, response.getResult(), PublicKey[].class);
                 }
                 listener.onFinish(response, keys);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("keys"), PublicKey[].class);
+            return Serializer.fromJson(response, response.getResult(), PublicKey[].class);
         }
         return null;
     }
@@ -1086,13 +1084,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Boolean value = null;
                 if (response.isSuccess()) {
-                    value = Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+                    value = Serializer.fromJson(response, response.getResult(), Boolean.class);
                 }
                 listener.onFinish(response, value);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+            return Serializer.fromJson(response, response.getResult(), Boolean.class);
         }
         return null;
     }
@@ -1106,13 +1104,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Boolean value = null;
                 if (response.isSuccess()) {
-                    value = Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+                    value = Serializer.fromJson(response, response.getResult(), Boolean.class);
                 }
                 listener.onFinish(response, value);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+            return Serializer.fromJson(response, response.getResult(), Boolean.class);
         }
         return null;
     }
@@ -1132,13 +1130,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 Boolean value = null;
                 if (response.isSuccess()) {
-                    value = Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+                    value = Serializer.fromJson(response, response.getResult(), Boolean.class);
                 }
                 listener.onFinish(response, value);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("valid"), Boolean.class);
+            return Serializer.fromJson(response, response.getResult(), Boolean.class);
         }
         return null;
     }
@@ -1153,13 +1151,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 List<String>[] accounts = null;
                 if (response.isSuccess()) {
-                    accounts = Serializer.fromJson(response, response.getObjectField("accounts"), List[].class, String.class);
+                    accounts = Serializer.fromJson(response, response.getResult(), List[].class, String.class);
                 }
                 listener.onFinish(response, accounts);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObjectField("accounts"), List[].class, String.class);
+            return Serializer.fromJson(response, response.getResult(), List[].class, String.class);
         }
         return null;
     }
@@ -1185,13 +1183,13 @@ public class Amalgam {
             public void onFinish(Response response) {
                 BroadcastResult result = null;
                 if (response.isSuccess()) {
-                    result = Serializer.fromJson(response, response.getObject(), BroadcastResult.class);
+                    result = Serializer.fromJson(response, response.getResult(), BroadcastResult.class);
                 }
                 listener.onFinish(response, result);
             }
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
-            return Serializer.fromJson(response, response.getObject(), BroadcastResult.class);
+            return Serializer.fromJson(response, response.getResult(), BroadcastResult.class);
         }
         return null;
     }

@@ -97,24 +97,15 @@ public class Response extends JSONObject {
         return has("result") && TextUtils.isEmpty(mError);
     }
 
-    public String getArray() {
-        return getJSONArray("result").toString();
-    }
-
-    public String getObject() {
-        return getJSONObject("result").toString();
-    }
-
-    public String getObjectField(String name) {
-        JSONObject result = new JSONObject();
-        JSONObject object = getJSONObject("result");
+    public String getResult() {
+        Object object = null;
         try {
-            if (object.has(name)) {
-                result = object.getJSONObject(name);
+            if (has("result")) {
+                object = super.get("result");
             }
         } catch (JSONException e) {
         }
-        return result.toString();
+        return object == null ? "{}" : object.toString();
     }
 
     public void setSuccess() {

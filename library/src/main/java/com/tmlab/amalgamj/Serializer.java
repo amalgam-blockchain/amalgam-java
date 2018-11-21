@@ -332,7 +332,7 @@ public class Serializer {
         @Override
         public Operation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             try {
-                LinkedHashMap<String, Object> list = context.deserialize(json, ArrayList.class);
+                LinkedHashMap<String, Object> list = context.deserialize(json, LinkedHashMap.class);
                 return Operation.deserialize(list);
             } catch (Exception e) {
                 throw new JsonParseException(e);
