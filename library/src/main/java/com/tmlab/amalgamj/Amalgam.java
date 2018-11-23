@@ -192,6 +192,30 @@ public class Amalgam {
         void onFinish(Response response, BroadcastResult result);
     }
 
+    public interface OnGetTickerListener {
+        void onFinish(Response response, Ticker ticker);
+    }
+
+    public interface OnGetVolumeListener {
+        void onFinish(Response response, Volume volume);
+    }
+
+    public interface OnGetOrderBookListener {
+        void onFinish(Response response, OrderBook orderBook);
+    }
+
+    public interface OnGetMarketTradesListener {
+        void onFinish(Response response, MarketTrade[] marketTrades);
+    }
+
+    public interface OnGetBucketsListener {
+        void onFinish(Response response, Bucket[] buckets);
+    }
+
+    public interface OnGetBucketSecondsListener {
+        void onFinish(Response response, Integer[] bucketSeconds);
+    }
+
     public interface OnGetAccountListener {
         void onFinish(Response response, Account account);
     }
@@ -1302,7 +1326,7 @@ public class Amalgam {
         return null;
     }
 
-    // Network broadcast API
+    // Network Broadcast API
 
     public static void broadcastTransaction(Transaction trx, final OnResponseListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -1343,6 +1367,139 @@ public class Amalgam {
                 listener.onFinish(response);
             }
         });
+    }
+
+    // Market History API
+
+    public static Ticker getTicker(final OnGetTickerListener listener) {
+        Response response = Connection.execute("market_history_api", "get_ticker", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Ticker ticker = null;
+                if (response.isSuccess()) {
+                    ticker = Serializer.fromJson(response, response.getResult(), Ticker.class);
+                }
+                listener.onFinish(response, ticker);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), Ticker.class);
+        }
+        return null;
+    }
+
+    public static Volume getVolume(final OnGetVolumeListener listener) {
+        Response response = Connection.execute("market_history_api", "get_volume", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Volume volume = null;
+                if (response.isSuccess()) {
+                    volume = Serializer.fromJson(response, response.getResult(), Volume.class);
+                }
+                listener.onFinish(response, volume);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), Volume.class);
+        }
+        return null;
+    }
+
+    public static OrderBook getOrderBook(int limit, final OnGetOrderBookListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("limit", limit);
+        Response response = Connection.execute("market_history_api", "get_order_book", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                OrderBook orderBook = null;
+                if (response.isSuccess()) {
+                    orderBook = Serializer.fromJson(response, response.getResult(), OrderBook.class);
+                }
+                listener.onFinish(response, orderBook);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), OrderBook.class);
+        }
+        return null;
+    }
+
+    public static MarketTrade[] getTradeHistory(TimePointSec start, TimePointSec end, int limit, final OnGetMarketTradesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("start", start);
+        params.put("end", end);
+        params.put("limit", limit);
+        Response response = Connection.execute("market_history_api", "get_trade_history", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                MarketTrade[] marketTrades = null;
+                if (response.isSuccess()) {
+                    marketTrades = Serializer.fromJson(response, response.getResult(), MarketTrade[].class);
+                }
+                listener.onFinish(response, marketTrades);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), MarketTrade[].class);
+        }
+        return null;
+    }
+
+    public static MarketTrade[] getRecentTrades(int limit, final OnGetMarketTradesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("limit", limit);
+        Response response = Connection.execute("market_history_api", "get_recent_trades", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                MarketTrade[] marketTrades = null;
+                if (response.isSuccess()) {
+                    marketTrades = Serializer.fromJson(response, response.getResult(), MarketTrade[].class);
+                }
+                listener.onFinish(response, marketTrades);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), MarketTrade[].class);
+        }
+        return null;
+    }
+
+    public static Bucket[] getMarketHistory(int bucketSeconds, TimePointSec start, TimePointSec end, final OnGetBucketsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("bucket_seconds", bucketSeconds);
+        params.put("start", start);
+        params.put("end", end);
+        Response response = Connection.execute("market_history_api", "get_market_history", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Bucket[] buckets = null;
+                if (response.isSuccess()) {
+                    buckets = Serializer.fromJson(response, response.getResult(), Bucket[].class);
+                }
+                listener.onFinish(response, buckets);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), Bucket[].class);
+        }
+        return null;
+    }
+
+    public static Integer[] getMarketHistoryBuckets(final OnGetBucketSecondsListener listener) {
+        Response response = Connection.execute("market_history_api", "get_market_history_buckets", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Integer[] bucketSeconds = null;
+                if (response.isSuccess()) {
+                    bucketSeconds = Serializer.fromJson(response, response.getResult(), Integer[].class);
+                }
+                listener.onFinish(response, bucketSeconds);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), Integer[].class);
+        }
+        return null;
     }
 
     // Operations
