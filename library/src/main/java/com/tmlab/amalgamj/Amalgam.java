@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import org.joou.UInteger;
+import org.joou.ULong;
 import org.joou.UShort;
 
 import java.util.LinkedHashMap;
@@ -107,6 +108,10 @@ public class Amalgam {
         void onFinish(Response response, Account[] accounts);
     }
 
+    public interface OnGetCountListener {
+        void onFinish(Response response, ULong count);
+    }
+
     public interface OnGetAccountHistoryListener {
         void onFinish(Response response, LinkedHashMap<Long, AppliedOperation> operations);
     }
@@ -129,6 +134,10 @@ public class Amalgam {
 
     public interface OnGetEscrowsListener {
         void onFinish(Response response, Escrow[] escrows);
+    }
+
+    public interface OnGetEscrowListener {
+        void onFinish(Response response, Escrow escrow);
     }
 
     public interface OnGetWithdrawVestingRoutesListener {
@@ -480,6 +489,81 @@ public class Amalgam {
         return null;
     }
 
+    public static WitnessVote[] getWitnessVotesByAccount(String account, final OnGetWitnessVotesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "get_witness_votes_by_account", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                WitnessVote[] witnessVotes = null;
+                if (response.isSuccess()) {
+                    witnessVotes = Serializer.fromJson(response, response.getResult(), WitnessVote[].class);
+                }
+                listener.onFinish(response, witnessVotes);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), WitnessVote[].class);
+        }
+        return null;
+    }
+
+    public static WitnessVote[] getWitnessVotesByWitness(String account, final OnGetWitnessVotesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "get_witness_votes_by_witness", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                WitnessVote[] witnessVotes = null;
+                if (response.isSuccess()) {
+                    witnessVotes = Serializer.fromJson(response, response.getResult(), WitnessVote[].class);
+                }
+                listener.onFinish(response, witnessVotes);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), WitnessVote[].class);
+        }
+        return null;
+    }
+
+    public static Witness[] getWitnessesByVote(String account, int limit, final OnGetWitnessesListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        params.put("limit", limit);
+        Response response = Connection.execute("database_api", "get_witnesses_by_vote", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Witness[] witnesses = null;
+                if (response.isSuccess()) {
+                    witnesses = Serializer.fromJson(response, response.getResult(), Witness[].class);
+                }
+                listener.onFinish(response, witnesses);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), Witness[].class);
+        }
+        return null;
+    }
+
+    public static ULong getWitnessCount(final OnGetCountListener listener) {
+        Response response = Connection.execute("database_api", "get_witness_count", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ULong count = null;
+                if (response.isSuccess()) {
+                    count = Serializer.fromJson(response, response.getResult(), ULong.class);
+                }
+                listener.onFinish(response, count);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), ULong.class);
+        }
+        return null;
+    }
+
     public static String[] getActiveWitnesses(final OnGetNamesListener listener) {
         Response response = Connection.execute("database_api", "get_active_witnesses", null, listener == null ? null : new Connection.OnResponseListener() {
             @Override
@@ -533,6 +617,23 @@ public class Amalgam {
         });
         if ((response != null) && response.isSuccess() && (listener == null)) {
             return Serializer.fromJson(response, response.getResult(), Account[].class);
+        }
+        return null;
+    }
+
+    public static ULong getAccountCount(final OnGetCountListener listener) {
+        Response response = Connection.execute("database_api", "get_account_count", null, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                ULong count = null;
+                if (response.isSuccess()) {
+                    count = Serializer.fromJson(response, response.getResult(), ULong.class);
+                }
+                listener.onFinish(response, count);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), ULong.class);
         }
         return null;
     }
@@ -737,6 +838,26 @@ public class Amalgam {
         return null;
     }
 
+    public static Escrow getEscrow(String from, UInteger escrowId, final OnGetEscrowListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("from", from);
+        params.put("escrow_id", escrowId);
+        Response response = Connection.execute("database_api", "get_escrow", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                Escrow escrow = null;
+                if (response.isSuccess()) {
+                    escrow = Serializer.fromJson(response, response.getResult(), Escrow.class);
+                }
+                listener.onFinish(response, escrow);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), Escrow.class);
+        }
+        return null;
+    }
+
     public static WithdrawVestingRoute[] listWithdrawVestingRoutes(Object start, int limit, String order, final OnGetWithdrawVestingRoutesListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("start", start);
@@ -799,10 +920,29 @@ public class Amalgam {
         return null;
     }
 
-    public static SavingsWithdraw[] findSavingsWithdrawals(String account, final OnGetSavingsWithdrawalsListener listener) {
+    public static SavingsWithdraw[] findSavingsWithdrawalsFrom(String account, final OnGetSavingsWithdrawalsListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("account", account);
-        Response response = Connection.execute("database_api", "find_savings_withdrawals", params, listener == null ? null : new Connection.OnResponseListener() {
+        Response response = Connection.execute("database_api", "find_savings_withdrawals_from", params, listener == null ? null : new Connection.OnResponseListener() {
+            @Override
+            public void onFinish(Response response) {
+                SavingsWithdraw[] withdrawals = null;
+                if (response.isSuccess()) {
+                    withdrawals = Serializer.fromJson(response, response.getResult(), SavingsWithdraw[].class);
+                }
+                listener.onFinish(response, withdrawals);
+            }
+        });
+        if ((response != null) && response.isSuccess() && (listener == null)) {
+            return Serializer.fromJson(response, response.getResult(), SavingsWithdraw[].class);
+        }
+        return null;
+    }
+
+    public static SavingsWithdraw[] findSavingsWithdrawalsTo(String account, final OnGetSavingsWithdrawalsListener listener) {
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("account", account);
+        Response response = Connection.execute("database_api", "find_savings_withdrawals_to", params, listener == null ? null : new Connection.OnResponseListener() {
             @Override
             public void onFinish(Response response) {
                 SavingsWithdraw[] withdrawals = null;
