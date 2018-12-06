@@ -1514,12 +1514,13 @@ public class Amalgam {
         return Connection.broadcast(privateKey, "transfer", params, prepare, listener);
     }
 
-    public static Response transferToVesting(PrivateKey privateKey, String from, String to, Asset amount,
+    public static Response transferToVesting(PrivateKey privateKey, String from, String to, Asset amount, String memo,
                                              boolean prepare, Connection.OnResponseListener listener) {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("from", from);
         params.put("to", to);
         params.put("amount", amount);
+        params.put("memo", memo);
         return Connection.broadcast(privateKey, "transfer_to_vesting", params, prepare, listener);
     }
 
