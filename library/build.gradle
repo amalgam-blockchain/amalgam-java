@@ -1,24 +1,14 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.9.1'
-    }
-}
 
 android {
-    compileSdkVersion 28
+    compileSdk 35
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
-        buildToolsVersion "28.0.3"
+        minSdk 16
+        targetSdk 35
+        buildToolsVersion = "35.0.1"
         versionCode 1
-        versionName "0.1.5"
+        versionName "0.1.6"
     }
 
     buildTypes {
@@ -28,19 +18,11 @@ android {
         }
     }
 
+    namespace 'com.tmlab.amalgamj'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.jooq:joou-java-6:0.9.4'
-}
-
-publish {
-    userOrg = 'amalgam-blockchain'
-    groupId = 'com.tmlab'
-    artifactId = 'amalgamj'
-    publishVersion = android.defaultConfig.versionName
-    desc = 'Amalgam API Java library'
-    website = 'https://github.com/amalgam-blockchain/amalgam-java'
 }

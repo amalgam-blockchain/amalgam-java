@@ -1,26 +1,30 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdk 35
+
     defaultConfig {
         applicationId "com.tmlab.amalgamj.sample"
-        minSdkVersion 16
-        targetSdkVersion 28
-        buildToolsVersion "28.0.3"
+        minSdk 16
+        targetSdk 35
+        buildToolsVersion = "35.0.1"
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    namespace 'com.tmlab.amalgamj.sample'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':library')
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'org.jooq:joou-java-6:0.9.4'
 }
